@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erasmus+ 2026 — KA2/KA3 idea-to-call assessment</title>
+<style>
+  :root{
+    --ink:#141414; --sub:#6a6a6a; --line:#e2e2e2; --accent:#1b3f9b; --warn:#8a5300;
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{background:#fff;color:var(--ink);font-family:var(--sans);margin:0;min-height:100vh}
+  .wrap{max-width:880px;margin:0 auto;padding:48px 24px 80px}
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  h1{font-family:var(--serif);font-size:32px;font-weight:400;margin:10px 0 6px;line-height:1.15}
+  header p{margin:0;color:var(--sub);font-size:14px;line-height:1.5;max-width:620px}
+  textarea{width:100%;border:1px solid var(--line);border-radius:0;padding:14px 16px;
+    font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink);resize:vertical;outline:none;margin-top:8px}
+  textarea:focus{border-color:var(--ink)}
+  .controls{display:flex;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap}
+  button#go{background:var(--ink);color:#fff;border:none;padding:12px 28px;font-size:13px;
+    letter-spacing:.08em;text-transform:uppercase;font-family:var(--sans);cursor:pointer}
+  button#go:disabled{background:var(--sub);cursor:wait}
+  button#go:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  #msg{color:var(--warn);font-size:13px}
+  .section-rule{border-top:2px solid var(--ink);padding-top:16px;margin-top:44px}
+  .summary{font-family:var(--serif);font-size:17px;margin:10px 0 4px;line-height:1.4}
+  .legend{color:var(--sub);font-size:12.5px;margin:0 0 20px}
+  article.match{border-top:1px solid var(--line);padding:20px 0;display:grid;
+    grid-template-columns:44px 1fr 120px;gap:18px;align-items:start}
+  .rank{font-family:var(--serif);font-size:22px;color:var(--sub)}
+  .match.best .rank{color:var(--ink)}
+  .match h2{font-family:var(--serif);font-size:19px;font-weight:400;margin:0 0 2px}
+  .match.best h2{font-weight:700}
+  .meta{font-size:12px;color:var(--sub);margin-bottom:10px}
+  .rule{position:relative;height:6px;background:#f0f0f0;width:100%}
+  .rule .fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);width:0;transition:width .6s ease}
+  .rule .tick{position:absolute;top:-3px;bottom:-3px;width:1.5px;background:var(--ink)}
+  .why{font-size:14px;line-height:1.55;margin:12px 0 6px}
+  .gaps{font-size:13px;color:var(--sub);margin:0}
+  .gaps b{color:var(--warn);font-weight:600}
+  .fitnum{text-align:right;font-family:var(--serif);font-size:34px;line-height:1}
+  .match.best .fitnum{color:var(--accent)}
+  .fitnum span{font-size:16px}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border:1px solid var(--line);margin:16px 0 24px}
+  .facts>div{padding:12px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .facts .eyebrow{font-size:10px;margin-bottom:4px}
+  .facts .v{font-size:13px;line-height:1.45}
+  h3{font-family:var(--serif);font-size:17px;font-weight:700;margin:28px 0 8px}
+  h3.first{margin-top:16px}
+  .prose{font-size:14.5px;line-height:1.6;margin:0 0 8px;max-width:700px}
+  .critrow{border-top:1px solid var(--line);padding:16px 0;display:grid;
+    grid-template-columns:minmax(180px,260px) 1fr;gap:20px}
+  .critname{font-size:14px;font-weight:600;line-height:1.4}
+  .critpts{font-size:12px;color:var(--sub);margin-top:4px}
+  ul,ol{margin:0;padding-left:18px;font-size:14px;line-height:1.6;max-width:700px}
+  ol{padding-left:20px;line-height:1.7}
+  li{margin-bottom:4px}
+  h3.warn{color:var(--warn)}
+  #pathwait{margin-top:28px;color:var(--sub);font-size:13.5px}
+  footer{margin-top:56px;border-top:1px solid var(--line);padding-top:14px}
+  footer p{font-size:12px;color:var(--sub);line-height:1.6;margin:0}
+  .hidden{display:none}
+  @media (max-width:640px){
+    article.match{grid-template-columns:28px 1fr;gap:12px}
+    .fitnum{grid-column:2;text-align:left;margin-top:4px}
+    .critrow{grid-template-columns:1fr;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Erasmus+ 2026 · Key Action 2 &amp; Key Action 3</div>
+    <h1>Idea-to-call assessment</h1>
+    <p>Paste a project idea. It is assessed against the objectives, priorities and award criteria of all thirteen
+       KA2 and KA3 actions in the Programme Guide 2026, ranked by fit, and the best match is developed into a
+       suggested path forward.</p>
+  </header>
+
+  <section>
+    <label for="idea" class="eyebrow">Project idea — free text, any length</label>
+    <textarea id="idea" rows="9" placeholder="Describe the idea: the problem, the target groups, the intended activities and results, the partners you have in mind, geography, and roughly the scale you imagine…"></textarea>
+    <div class="controls">
+      <button id="go">Assess the idea</button>
+      <span id="msg"></span>
+    </div>
+  </section>
+
+  <section id="results" class="hidden">
+    <div class="section-rule">
+      <div class="eyebrow">Assessment — ranked fit</div>
+      <p class="summary" id="ideaSummary"></p>
+      <p class="legend">Fit expressed against the call's own objectives and priorities. The tick on each rule marks
+         the call's funding threshold — a reminder that thresholds are absolute, per criterion.</p>
+    </div>
+    <div id="matches"></div>
+  </section>
+
+  <p id="pathwait" class="hidden">Developing the suggested path for the best match against its award criteria…</p>
+
+  <section id="pathsec" class="hidden">
+    <div class="section-rule" style="margin-bottom:8px">
+      <div class="eyebrow" id="pathTitle"></div>
+    </div>
+    <div class="facts" id="facts"></div>
+    <h3 class="first">Positioning</h3>
+    <p class="prose" id="framing"></p>
+    <h3>Building the proposal criterion by criterion</h3>
+    <div id="critgrid"></div>
+    <h3>Impact narrative to commit to</h3>
+    <p class="prose" id="impact"></p>
+    <h3>Next steps</h3>
+    <ol id="steps"></ol>
+    <h3 class="warn" id="risksHead">Rejection risks to neutralise</h3>
+    <ul id="risks"></ul>
+  </section>
+
+  <footer>
+    <p>Assessment grounded in the Erasmus+ Programme Guide 2026 (Version 1, 12/11/2025), Key Actions 2 and 3.
+       Indicative guidance only — verify eligibility, deadlines and priorities against the Guide and the
+       EDUFI / EACEA call pages before committing resources. AI analysis runs when this file is used inside the
+       Claude environment.</p>
+  </footer>
+</div>
+
+<script>
+/* ============ Reference data (Programme Guide 2026) ============ */
+const ACTIONS = [
+ {id:"KA220",name:"Cooperation Partnerships (KA220)",ka:"KA2 — Partnerships for Cooperation",
+  agency:"National Agency (EDUFI in FI); ENGOs via EACEA",deadline:"5 March, 12:00 Brussels (possible 2nd round 1 Oct)",
+  grant:"Lump sum EUR 120 000 / 250 000 / 400 000",duration:"12–36 months",
+  consortium:"Min. 3 organisations from 3 EU MS / associated countries",threshold:70,
+  criteria:[{n:"Relevance",max:25,min:13},{n:"Quality of project design and implementation",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:25,min:13}]},
+ {id:"KA210",name:"Small-scale Partnerships (KA210)",ka:"KA2 — Partnerships for Cooperation",
+  agency:"National Agency (EDUFI in FI)",deadline:"5 March, 12:00 Brussels; 2nd round 1 October",
+  grant:"Lump sum EUR 30 000 or EUR 60 000",duration:"6–24 months",
+  consortium:"Min. 2 organisations from 2 EU MS / associated countries",threshold:60,
+  criteria:[{n:"Relevance",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
+ {id:"EPSD",name:"European Partnerships for School Development",ka:"KA2 — Partnerships for Cooperation (new 2026)",
+  agency:"National Agency (EDUFI in FI)",deadline:"9 April, 12:00 Brussels",
+  grant:"Lump sum EUR 400 000",duration:"36 months",
+  consortium:"Coordinator must be a local/regional school authority or school coordination body; min. 6 organisations incl. school authority + 2 schools in ≥2 countries",
+  threshold:70,
+  criteria:[{n:"Relevance",max:15,min:8},{n:"Quality of project design",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:35,min:18}]},
+ {id:"COVE",name:"Centres of Vocational Excellence (CoVE)",ka:"KA2 — Partnerships for Excellence",
+  agency:"EACEA",deadline:"3 September, 17:00 Brussels",grant:"Max. EUR 4 000 000",duration:"48 months",
+  consortium:"Min. 8 applicants from min. 4 EU MS / associated countries; VET + world of work",threshold:75,
+  criteria:[{n:"Relevance of the project",max:35,min:18},{n:"Quality of project design and implementation",max:25,min:13},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:11},{n:"Impact",max:20,min:11}]},
+ {id:"EMJM",name:"Erasmus Mundus Joint Masters (EMJM)",ka:"KA2 — Partnerships for Excellence",
+  agency:"EACEA",deadline:"12 February, 17:00 Brussels",
+  grant:"Scholarship-based lump sums per intake (multi-annual, several EUR million)",duration:"Up to 74 months",
+  consortium:"International HEI consortium delivering a fully integrated joint Master",threshold:70,
+  criteria:[{n:"Relevance of the project",max:30,min:22},{n:"Quality of project design and implementation",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
+ {id:"EMDM",name:"Erasmus Mundus Design Measures (EMDM)",ka:"KA2 — Partnerships for Excellence",
+  agency:"EACEA",deadline:"12 February, 17:00 Brussels",grant:"Lump sum EUR 60 000",duration:"15 months",
+  consortium:"Mono-beneficiary (single HEI) designing a joint Master with ≥3 HEIs from 3 countries",threshold:60,
+  criteria:[{n:"Relevance of the project",max:30,min:16},{n:"Quality of project design and implementation",max:25,min:12},
+   {n:"Quality of partnership and cooperation arrangements",max:25,min:12},{n:"Impact",max:20,min:10}]},
+ {id:"ALLIANCES",name:"Alliances for Innovation",ka:"KA2 — Partnerships for Innovation",
+  agency:"EACEA",deadline:"10 March, 17:00 Brussels",
+  grant:"Lot 1: EUR 1M (2y) / 1.5M (3y) · Lot 2 Blueprint: EUR 4M (4y) · Lot 3 STEM Foundries: EUR 1.5M (2y)",
+  duration:"2–4 years by lot",
+  consortium:"Lot 1: min. 8 applicants from ≥4 countries incl. ≥1 HEI, ≥1 VET provider and enterprises",threshold:70,
+  criteria:[{n:"Relevance of the project",max:25,min:13},{n:"Quality of project design and implementation",max:30,min:16},
+   {n:"Quality of partnership and cooperation arrangements",max:25,min:13},{n:"Impact",max:20,min:11}]},
+ {id:"CBHE",name:"Capacity Building in Higher Education (CBHE)",ka:"KA2 — Capacity Building",
+  agency:"EACEA",deadline:"10 February, 17:00 Brussels",
+  grant:"Strand 1: 200–400K · Strand 2: 400–800K · Strand 3: 600K–1M (EUR)",duration:"24–36 months (S3 up to 48)",
+  consortium:"HEIs from ≥2 EU MS / associated countries + HEIs from eligible third countries not associated to the Programme",
+  threshold:60,
+  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Sustainability, impact and dissemination",max:20,min:10}]},
+ {id:"CBVET",name:"Capacity Building in VET (CB VET)",ka:"KA2 — Capacity Building",
+  agency:"EACEA",deadline:"26 March, 17:00 Brussels",grant:"Max. EUR 500 000",duration:"12–36 months",
+  consortium:"Min. 4 applicants: ≥2 EU MS / associated countries and ≥2 organisations from eligible third countries",
+  threshold:60,
+  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
+ {id:"CBYOUTH",name:"Capacity Building in the field of Youth",ka:"KA2 — Capacity Building",
+  agency:"EACEA",deadline:"26 February, 17:00 Brussels",
+  grant:"Max. EUR 300 000 (Regions 1–3) / 450 000 (Region 9)",duration:"12–36 months",
+  consortium:"Min. 4 applicants incl. organisations from eligible third countries",threshold:60,
+  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
+ {id:"CBSPORT",name:"Capacity Building in the field of Sport",ka:"KA2 — Capacity Building",
+  agency:"EACEA",deadline:"5 March, 17:00 Brussels",grant:"EUR 100 000 – 200 000",duration:"12–36 months",
+  consortium:"Min. 4 organisations incl. grassroots sport organisations from Regions 1–2",threshold:60,
+  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:20,min:10},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:30,min:15}]},
+ {id:"SPORTEVENTS",name:"Not-for-profit European Sport Events",ka:"KA2",
+  agency:"EACEA",deadline:"5 March (large-scale: 22 January), 17:00 Brussels",
+  grant:"EUR 200K / 300K / 450K; large-scale 1–1.5M",duration:"12–18 months",
+  consortium:"3–15+ organisations depending on event type",threshold:60,
+  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:20,min:10},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:30,min:15}]},
+ {id:"EYT",name:"European Youth Together (KA3)",ka:"KA3 — Support to Policy Development and Cooperation",
+  agency:"EACEA",deadline:"26 February, 17:00 Brussels",grant:"Max. EUR 500 000",duration:"24 months",
+  consortium:"Min. 5 applicants from ≥5 EU MS / associated countries; youth NGOs and public bodies",threshold:60,
+  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
+   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]}
+];
+
+const KB = `
+ERASMUS+ PROGRAMME GUIDE 2026 — KA2 AND KA3 ACTIONS (condensed from the Guide main text)
+
+[KA220] COOPERATION PARTNERSHIPS. Objectives: increase quality in the work, activities and practices of organisations, opening up to new actors; build capacity to work transnationally and across sectors; address common needs and priorities in education, training, youth and sport; enable transformation and change at individual, organisational or sectoral level. Must address at least one 2026 priority: horizontal priorities are (1) inclusion and diversity (highly relevant flag), (2) environment and fight against climate change (green competences, New European Bauhaus), (3) digital transformation (digital skills, AI, digital pedagogy, disinformation, digital literacy), (4) common values, civic engagement, preparedness and participation; plus sector-specific priorities (e.g. higher education: inter-connected, innovative, inclusive, digital HE; Union of Skills; quality, mobility, recognition). Consortium: min 3 orgs from 3 programme countries; third-country partners only if essential added value. Grants: lump sums 120k/250k/400k EUR, 12-36 months, National Agency route, deadline 5 March. Award: Relevance 25 (highly relevant if inclusion priority or national European Priorities; EU values; needs analysis; innovation; EU added value), Quality of design 30 (clear objectives, work plan, cost-effectiveness, quality control, inclusion, digital tools & Erasmus+ platforms, green design, participation, indicators), Partnership 20 (mix of profiles incl. newcomers, task allocation, coordination), Impact 25 (integration of results into regular work, transferability beyond partners, dissemination, open licences, sustainability). Threshold 70/100 and at least half per criterion (13/15/10/13).
+
+[KA210] SMALL-SCALE PARTNERSHIPS. Objectives: attract and widen access for newcomers, less experienced organisations and small-scale actors; support inclusion of target groups with fewer opportunities; support active European citizenship and bring the European dimension to the local level; KA220 objectives apply proportionally. Especially suitable for inclusion & diversity as subject or working method. Consortium: min 2 orgs from 2 programme countries. Grants: 30k or 60k EUR lump sum, 6-24 months, National Agency, deadlines 5 March and 1 October. Award: Relevance 30, Quality of design 30, Partnership 20, Impact 20; threshold 60/100 and half per criterion (15/15/10/10). Simple administration; first step into European cooperation.
+
+[EPSD] EUROPEAN PARTNERSHIPS FOR SCHOOL DEVELOPMENT (new 2026). Objective: better cross-border cooperation and mobility between schools; improve quality of learning and teaching through European cooperation; strengthen institutional capacity/structures to extend learning mobility (synergies with KA1); trigger innovation in school education practices, procedures and policies. Activities in two mandatory categories: (1) improving quality of learning/teaching (innovative teaching, collaborative co-teaching, peer-learning/job-shadowing/mentoring, teacher substitution pooling) and (2) capacity building for cross-border cooperation (mobility coordinators/support structures, mainstreaming, mobility windows, recognition of learning outcomes and project work, train-the-trainer). Min 3 tasks, at least one per category. Coordinator MUST be a local/regional school authority or school coordination body; min 6 organisations; school authority + 2 schools in applicant country and in >=1 other country. 400k EUR lump sum, 36 months, National Agency, deadline 9 April. Award: Relevance 15, Quality of project design 30, Partnership 20, Impact 35; threshold 70 + half per criterion. Anchored in European Education Area, Union of Skills, 'Europe on the Move' Council Recommendation.
+
+[COVE] CENTRES OF VOCATIONAL EXCELLENCE. Objective: transnational collaborative networks of local/regional VET stakeholders (VET institutions, companies, social partners, authorities, HEIs, research) in public-private partnerships creating skills ecosystems for innovation, regional development, social inclusion and European competitiveness; high-quality learner-centred VET (project must show main focus on VET at EQF 3-5); upward convergence of VET excellence; activities under three clusters: teaching & learning, cooperation & partnerships, governance & funding. Requires long-term action plan for roll-out, use of EU tools (EQF, EQAVET, micro-credentials/EDC, ESCO). Policy anchors: Council Recommendation on VET, Osnabrück/Herning Declarations, Union of Skills, Competitiveness Compass, Clean Industrial Deal, regional smart specialisation. Min 8 applicants from >=4 programme countries. Max 4M EUR, 48 months, EACEA, deadline 3 September. Award: Relevance 35 (link to VET policy, consistency, innovation, regional dimension, EU added value, internationalisation, digital skills, green skills, social dimension), Quality of design 25 (coherence, activities across 3 clusters, methodology, management/KPIs, budget, work plan, quality control incl. external mid-term and final review), Partnership 20 (configuration incl. public authorities, upward convergence, geographical dimension, collaboration), Impact 20 (exploitation, dissemination, mainstreaming into regional/national/EU VET, sustainability with long-term action plan, governance, financial sustainability). Threshold 75/100 with minima 18/13/11/11. Seal of Excellence possible above thresholds.
+
+[EMJM] ERASMUS MUNDUS JOINT MASTERS. Objective: excellence and worldwide internationalisation of HE via fully integrated transnational Master programmes jointly delivered and recognised; EU-funded scholarships for best students worldwide; high degree of jointness/integration (joint admission, selection, delivery, QA, joint/multiple degree). EACEA, deadline 12 February. Award: Relevance 30 (min 22 required — very demanding), Quality of design 30, Partnership 20, Impact 20; threshold 70. Only for consortia ready to deliver an integrated joint Master of proven academic excellence.
+
+[EMDM] ERASMUS MUNDUS DESIGN MEASURES. Objective: design a new integrated Master programme (>=3 HEIs from 3 countries, >=2 from EU/associated); deliverables: joint admission/selection rules, joint programme, degree policy, draft partnership and student agreements, accreditation plan. Mono-beneficiary, 60k EUR, 15 months, EACEA, deadline 12 February. Award: Relevance 30/16, Quality 25/12, Partnership 25/12, Impact 20/10; threshold 60.
+
+[ALLIANCES] ALLIANCES FOR INNOVATION. Lot 1 Alliances for Education and Enterprises: transnational result-driven cooperation of HE, VET and enterprises fostering innovation, new skills, initiative and entrepreneurial mind-sets; aims include innovative multidisciplinary teaching/learning, STEM talent, incubators, corporate social responsibility, entrepreneurship (EntreComp), quality/relevance of skills, tackling skills mismatches and severe skills gaps in sectors crucial for Europe's competitiveness (Union of Skills), knowledge co-creation between HE, VET, research, public and business sectors, joint programmes and micro-credentials. Min 8 applicants from >=4 programme countries incl. >=1 HEI and >=1 VET provider and enterprises; 1M EUR (2y) or 1.5M (3y). Lot 2 Alliances for Sectoral Cooperation on Skills (Blueprint): sectoral skills strategies and intelligence, occupational profiles, training programmes for one of 14 industrial ecosystems, implementing the Pact for Skills under the Union of Skills; EQF 3-8; systemic impact on skills shortages; 4M EUR, 4 years; larger consortium incl. sectoral representatives. Lot 3 STEM Skills Foundries: HEI-VET-business cooperation giving young student entrepreneurs business insight, mentoring, labs, IP support, venture capital access in Competitiveness Compass strategic sectors; 1.5M EUR, 2 years. EACEA, deadline 10 March. Expected impact: regional innovation ecosystems, modernisation of HE and VET, Pact for Skills, Clean Industrial Deal, digital and green transitions. Award (all lots): Relevance 25/13, Quality of design 30/16, Partnership 25/13, Impact 20/11; threshold 70.
+
+[CBHE] CAPACITY BUILDING IN HIGHER EDUCATION. Objectives: support third countries not associated to the Programme — relevance of HE for Global Gateway; quality and labour-market relevance of HE; competences/employability of students via new innovative programmes; inclusive education; teaching, QA, governance, digital and entrepreneurial capacities, internationalisation of HEIs; system modernisation and reform; teacher training; cooperation with community and industry. Priorities: Green Deal, digital transformation (digital skills/literacy, connectivity, AI, SME digitalisation), integration of migrants, governance/peace/security/human development, sustainable growth and jobs (STEAM, entrepreneurship, brain drain). Strand 1: fostering access for newcomer/less experienced HEIs, people with fewer opportunities (200-400k). Strand 2: partnerships for transformation — MUST combine innovation in HE for labour-market and societal relevance AND institutional reform making HEIs catalysts of development (new curricula, innovative learning, staff development, governance, links to society/industry) (400-800k). Strand 3: structural reform at system level with national authorities (600k-1M); in regions 5a/6/8a/9/10/11 must align with Global Gateway priorities or fails Relevance minimum. Consortium: >=2 programme countries + eligible third countries; funding rate 90% lump sum. EACEA, deadline 10 February. Award: Relevance 30/15 (Global Gateway, regional priorities, SMART objectives, EU added value), Quality of design 30/15 (coherence, logic of intervention/indicators, work plan, budget, quality control, green design), Partnership 20/10 (management, composition incl. non-academic partners, third-country ownership), Sustainability-impact-dissemination 20/10 (exploitation, communication, impact at individual/institutional/system level, financial and institutional sustainability, local ownership). Threshold 60.
+
+[CBVET] CAPACITY BUILDING IN VET. Objectives: build capacity of VET providers in third countries not associated to the Programme; strengthen public-private cooperation for demand-oriented VET; improve quality and labour-market responsiveness of VET; align VET with local/regional/national development strategies. Thematic areas: work-based learning, quality assurance, VET teacher/trainer development, key competences incl. entrepreneurship, public-private dialogue, innovation in VET, green and digital skills for the twin transition, STEM in VET, skills matching, curricula and training modules. Regional priorities (Global Gateway packages, Torino process). Min 4 applicants (>=2 programme countries, >=2 orgs from eligible third countries). Max 500k EUR, 12-36 months, EACEA, deadline 26 March. Award: Relevance 30/15 (link to objectives/thematic areas/regional priorities), Quality 30/15 (needs analysis of third-country partners, coherence, work plan, recognition tools EQF/EQAVET/Europass/ESCO/DigComp/EntreComp/GreenComp, innovation), Partnership 20/10 (configuration, commitment esp. third-country ownership), Impact 20/10 (impact indicators SMART, dissemination, exploitation, open access, sustainability). Threshold 60.
+
+[CBYOUTH] CAPACITY BUILDING IN YOUTH. Objectives: raise capacity of organisations working with young people outside formal learning in eligible third countries; non-formal learning, young people with fewer opportunities; development and recognition of youth work; schemes for non-formal learning mobility; EU Youth Strategy 2019-2027, European Youth Goals, European Youth Work Agenda, Youth Action Plan in EU external action; Region 9 (Sub-Saharan Africa) also youth exchanges/participation activities under Africa-Europe Youth Academy and Youth Mobility for Africa flagship. Min 4 applicants; 300k (Regions 1-3) / 450k (Region 9). EACEA, deadline 26 February. Award: Relevance 30/15, Quality 30/15 (non-formal learning methods, Youthpass), Partnership 20/10, Impact 20/10. Threshold 60.
+
+[CBSPORT] CAPACITY BUILDING IN SPORT. Objectives: raise capacity of grassroots sport organisations; encourage sport and physical activity in third countries not associated to the Programme (Regions 1-2); social inclusion through sport; positive values (fair play, tolerance, team spirit); joint initiatives across world regions. Thematic: non-discrimination and gender equality through sport, skills for social involvement of disadvantaged groups, integration of migrants, post-conflict reconciliation. Min 4 orgs. 100-200k EUR, EACEA, deadline 5 March. Award: Relevance 30, Quality 20, Partnership 20, Impact 30; threshold 60 + half per criterion.
+
+[SPORTEVENTS] NOT-FOR-PROFIT EUROPEAN SPORT EVENTS. Objective: organisation of sport events with European dimension in: volunteering in sport; social inclusion through sport; fight against discrimination incl. gender equality; healthy lifestyles for all (HealthyLifestyle4All, EU Physical Activity Guidelines, European Week of Sport). One prevailing objective required. Types: European-local (Type I 200k, 3 orgs/3 countries; Type II 300k, 6 orgs/6 countries), European-wide (450k, 10 orgs), large-scale (1-1.5M, 15 orgs, deadline 22 January). Standard deadline 5 March, EACEA. Award: Relevance 30, Quality 20, Partnership 20, Impact 30; threshold 60 + half per criterion.
+
+[EYT] EUROPEAN YOUTH TOGETHER (KA3). Objective: transnational partnerships of grassroots and larger youth organisations, reinforcing the European dimension of their activities; joint projects, exchanges, trainings (physical and online); promote EU Youth Strategy 2019-2027 and European Youth Goals; EU core values; democratic participation esp. under-represented and fewer-opportunity youth incl. rural/remote; innovative cooperation between youth organisations; European Youth Work Agenda. Mobility for young people may be a key component if justified. Min 5 applicants from >=5 programme countries (NGOs incl. European Youth NGOs and public bodies); youth-led design encouraged. Max 500k EUR, 24 months, EACEA, deadline 26 February; financial support to third parties possible (max 60k per FSTP). Award: Relevance 30/15 (EU Youth Strategy added value, needs, youth engagement incl. remote/rural/fewer opportunities), Quality 30/15 (planning, methodology, cost effectiveness for grassroots, learning dimension/Youthpass), Partnership 20/10 (geographic spread reflecting European diversity, developing local NGOs, youth involved in all stages), Impact 20/10 (pathways to expected impact areas, scaling grassroots activity to EU level, system-level change, communication to policy makers). Threshold 60.
+
+IMPORTANT SCORING RULES (apply to all actions): the total threshold AND a minimum of roughly half the points per criterion are absolute — failing ONE criterion minimum rejects the proposal regardless of total. Action-type alignment is foundational: proposing the wrong project type for a call is a disqualifying error, not cosmetic.
+`;
+
+const SYS_RANK = `You are an experienced Erasmus+ evaluator and funding advisor. Using ONLY the knowledge base of the Erasmus+ Programme Guide 2026 below, assess which KA2 or KA3 action best fits the project idea provided by the user.
+
+${KB}
+
+Rules for the fit percentage: 85-100 = idea maps directly onto the action's objectives, consortium logic and scale; 65-84 = strong fit but requires reframing or consortium/scope adjustment; 40-64 = partial fit, significant restructuring needed; below 40 = poor fit. Judge against the action's OBJECTIVES, priorities, consortium requirements, scale/grant size, and target groups as written in the Guide. Penalise mismatches in project type (e.g. mobility idea vs institutional cooperation), geography (intra-EU vs third countries), sector, and scale. If the idea is too thin to assess, still rank but flag it.
+
+Respond ONLY with valid JSON, no markdown fences, no preamble, in this exact shape:
+{"matches":[{"id":"<ACTION ID from: KA220,KA210,EPSD,COVE,EMJM,EMDM,ALLIANCES,CBHE,CBVET,CBYOUTH,CBSPORT,SPORTEVENTS,EYT>","fit":<integer 0-100>,"why":"<=45 words grounded in the call text: which objectives/priorities it matches>","gaps":["<=15 words each, max 3 items: what the idea lacks vs this call>"]}],"ideaSummary":"<=25 words neutral summary of the idea>"}
+Return exactly 3 matches sorted by fit descending. Be strict and realistic — evaluators reject more than they fund.`;
+
+const SYS_PATH = `You are an experienced Erasmus+ evaluator and proposal coach. Using ONLY the knowledge base of the Erasmus+ Programme Guide 2026 below, produce a concrete path forward for developing the user's idea into a competitive proposal for the specified action. Anchor every recommendation in that action's award criteria, objectives and expected impact as written in the Guide. Remember: scoring below the per-criterion minimum rejects the proposal regardless of total score.
+
+${KB}
+
+Respond ONLY with valid JSON, no markdown fences, no preamble, in this exact shape:
+{"framing":"<=40 words: how to position the idea against the action's objectives and 2026 priorities>",
+"criteria":[{"criterion":"<criterion name>","advice":["<=22 words each, 2-3 concrete actions tailored to THIS idea to secure this criterion>"]}],
+"impact":"<=40 words: the impact narrative the proposal should commit to, in the call's own impact language>",
+"nextSteps":["<=18 words each, 4-5 sequenced practical steps: consortium, evidence, structure, timeline toward the deadline>"],
+"risks":["<=16 words each, max 3: rejection risks specific to this idea vs the thresholds>"]}
+Include all four award criteria of the action, in the Guide's order. Be specific to the idea, not generic.`;
+
+/* ============ API ============ */
+async function callClaude(system, user){
+  const response = await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      model:"claude-sonnet-4-6",
+      max_tokens:1000,
+      system:system,
+      messages:[{role:"user",content:user}]
+    })
+  });
+  const data = await response.json();
+  const text = (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
+  const clean = text.replace(/```json|```/g,"").trim();
+  const s = clean.indexOf("{"), e = clean.lastIndexOf("}");
+  return JSON.parse(clean.slice(s, e+1));
+}
+
+/* ============ Rendering ============ */
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function renderRanking(r){
+  $("ideaSummary").textContent = r.ideaSummary || "";
+  const box = $("matches"); box.innerHTML = "";
+  r.matches.forEach((m,i)=>{
+    const a = ACTIONS.find(x=>x.id===m.id);
+    const el = document.createElement("article");
+    el.className = "match" + (i===0 ? " best" : "");
+    el.innerHTML = `
+      <div class="rank">${i+1}</div>
+      <div>
+        <h2>${esc(a.name)}</h2>
+        <div class="meta">${esc(a.ka)} · ${esc(a.agency)} · Deadline ${esc(a.deadline)} · ${esc(a.grant)}</div>
+        <div class="rule">
+          <div class="fill"></div>
+          <div class="tick" style="left:${a.threshold}%" title="Funding threshold ${a.threshold}/100"></div>
+        </div>
+        <p class="why">${esc(m.why)}</p>
+        ${m.gaps && m.gaps.length ? `<p class="gaps"><b>Gaps:</b> ${m.gaps.map(esc).join(" · ")}</p>` : ""}
+      </div>
+      <div class="fitnum">${m.fit}<span>%</span><div class="eyebrow" style="margin-top:4px">fit</div></div>`;
+    box.appendChild(el);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ el.querySelector(".fill").style.width = m.fit + "%"; }));
+  });
+  $("results").classList.remove("hidden");
+}
+
+function renderPath(p, best){
+  $("pathTitle").textContent = "Suggested path forward — " + best.name;
+  const facts = [
+    ["Managed by",best.agency],["Deadline",best.deadline],["Grant",best.grant],
+    ["Duration",best.duration],["Consortium",best.consortium],
+    ["Funding threshold",best.threshold + "/100 — and at least the minimum in every criterion"]
+  ];
+  $("facts").innerHTML = facts.map(([k,v])=>`<div><div class="eyebrow">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join("");
+  $("framing").textContent = p.framing || "";
+  $("critgrid").innerHTML = (p.criteria||[]).map((c,idx)=>{
+    const meta = best.criteria.find(x=>x.n.toLowerCase().startsWith(String(c.criterion||"").toLowerCase().slice(0,12))) || best.criteria[idx];
+    return `<div class="critrow">
+      <div><div class="critname">${esc(c.criterion)}</div>
+      ${meta?`<div class="critpts">max ${meta.max} pts · pass ≥ ${meta.min}</div>`:""}</div>
+      <ul>${(c.advice||[]).map(a=>`<li>${esc(a)}</li>`).join("")}</ul>
+    </div>`;
+  }).join("");
+  $("impact").textContent = p.impact || "";
+  $("steps").innerHTML = (p.nextSteps||[]).map(s=>`<li>${esc(s)}</li>`).join("");
+  const risks = p.risks || [];
+  $("risks").innerHTML = risks.map(r=>`<li>${esc(r)}</li>`).join("");
+  $("risksHead").style.display = risks.length ? "" : "none";
+  $("risks").style.display = risks.length ? "" : "none";
+  $("pathsec").classList.remove("hidden");
+}
+
+/* ============ Flow ============ */
+$("go").addEventListener("click", async ()=>{
+  const idea = $("idea").value.trim();
+  const msg = $("msg");
+  if(idea.length < 40){
+    msg.textContent = "Describe the idea in a few sentences at least — the assessment is only as good as the input.";
+    return;
+  }
+  msg.textContent = "";
+  $("results").classList.add("hidden");
+  $("pathsec").classList.add("hidden");
+  $("pathwait").classList.add("hidden");
+  const btn = $("go");
+  btn.disabled = true;
+  btn.textContent = "Assessing against 13 calls…";
+  try{
+    const r = await callClaude(SYS_RANK, "PROJECT IDEA:\n" + idea);
+    const valid = (r.matches||[]).filter(m=>ACTIONS.some(a=>a.id===m.id)).slice(0,3);
+    if(!valid.length) throw new Error("no valid matches");
+    renderRanking({...r, matches:valid});
+    const best = ACTIONS.find(a=>a.id===valid[0].id);
+    btn.textContent = "Preparing path forward…";
+    $("pathwait").classList.remove("hidden");
+    const p = await callClaude(SYS_PATH,
+      `ACTION: ${best.id} — ${best.name}\n\nPROJECT IDEA:\n${idea}\n\nEVALUATOR'S INITIAL ASSESSMENT: fit ${valid[0].fit}%. ${valid[0].why} Identified gaps: ${(valid[0].gaps||[]).join("; ")}`);
+    $("pathwait").classList.add("hidden");
+    renderPath(p, best);
+  }catch(err){
+    console.error(err);
+    $("pathwait").classList.add("hidden");
+    msg.textContent = "The analysis could not be completed. Check the connection and try again — the idea text is preserved.";
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "Re-assess";
+  }
+});
+</script>
+</body>
+</html>
