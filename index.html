@@ -2,378 +2,554 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Erasmus+ 2026 — KA2/KA3 idea-to-call assessment</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Erasmus+ 2026 — KA2/KA3 Idea Matcher</title>
 <style>
-  :root{
-    --ink:#141414; --sub:#6a6a6a; --line:#e2e2e2; --accent:#1b3f9b; --warn:#8a5300;
-    --serif:Georgia,'Times New Roman',serif;
-    --sans:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
-  }
-  *{box-sizing:border-box}
-  body{background:#fff;color:var(--ink);font-family:var(--sans);margin:0;min-height:100vh}
-  .wrap{max-width:880px;margin:0 auto;padding:48px 24px 80px}
-  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
-  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
-  h1{font-family:var(--serif);font-size:32px;font-weight:400;margin:10px 0 6px;line-height:1.15}
-  header p{margin:0;color:var(--sub);font-size:14px;line-height:1.5;max-width:620px}
-  textarea{width:100%;border:1px solid var(--line);border-radius:0;padding:14px 16px;
-    font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink);resize:vertical;outline:none;margin-top:8px}
-  textarea:focus{border-color:var(--ink)}
-  .controls{display:flex;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap}
-  button#go{background:var(--ink);color:#fff;border:none;padding:12px 28px;font-size:13px;
-    letter-spacing:.08em;text-transform:uppercase;font-family:var(--sans);cursor:pointer}
-  button#go:disabled{background:var(--sub);cursor:wait}
-  button#go:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  #msg{color:var(--warn);font-size:13px}
-  .section-rule{border-top:2px solid var(--ink);padding-top:16px;margin-top:44px}
-  .summary{font-family:var(--serif);font-size:17px;margin:10px 0 4px;line-height:1.4}
-  .legend{color:var(--sub);font-size:12.5px;margin:0 0 20px}
-  article.match{border-top:1px solid var(--line);padding:20px 0;display:grid;
-    grid-template-columns:44px 1fr 120px;gap:18px;align-items:start}
-  .rank{font-family:var(--serif);font-size:22px;color:var(--sub)}
-  .match.best .rank{color:var(--ink)}
-  .match h2{font-family:var(--serif);font-size:19px;font-weight:400;margin:0 0 2px}
-  .match.best h2{font-weight:700}
-  .meta{font-size:12px;color:var(--sub);margin-bottom:10px}
-  .rule{position:relative;height:6px;background:#f0f0f0;width:100%}
-  .rule .fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);width:0;transition:width .6s ease}
-  .rule .tick{position:absolute;top:-3px;bottom:-3px;width:1.5px;background:var(--ink)}
-  .why{font-size:14px;line-height:1.55;margin:12px 0 6px}
-  .gaps{font-size:13px;color:var(--sub);margin:0}
-  .gaps b{color:var(--warn);font-weight:600}
-  .fitnum{text-align:right;font-family:var(--serif);font-size:34px;line-height:1}
-  .match.best .fitnum{color:var(--accent)}
-  .fitnum span{font-size:16px}
-  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border:1px solid var(--line);margin:16px 0 24px}
-  .facts>div{padding:12px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .facts .eyebrow{font-size:10px;margin-bottom:4px}
-  .facts .v{font-size:13px;line-height:1.45}
-  h3{font-family:var(--serif);font-size:17px;font-weight:700;margin:28px 0 8px}
-  h3.first{margin-top:16px}
-  .prose{font-size:14.5px;line-height:1.6;margin:0 0 8px;max-width:700px}
-  .critrow{border-top:1px solid var(--line);padding:16px 0;display:grid;
-    grid-template-columns:minmax(180px,260px) 1fr;gap:20px}
-  .critname{font-size:14px;font-weight:600;line-height:1.4}
-  .critpts{font-size:12px;color:var(--sub);margin-top:4px}
-  ul,ol{margin:0;padding-left:18px;font-size:14px;line-height:1.6;max-width:700px}
-  ol{padding-left:20px;line-height:1.7}
-  li{margin-bottom:4px}
-  h3.warn{color:var(--warn)}
-  #pathwait{margin-top:28px;color:var(--sub);font-size:13.5px}
-  footer{margin-top:56px;border-top:1px solid var(--line);padding-top:14px}
-  footer p{font-size:12px;color:var(--sub);line-height:1.6;margin:0}
-  .hidden{display:none}
-  @media (max-width:640px){
-    article.match{grid-template-columns:28px 1fr;gap:12px}
-    .fitnum{grid-column:2;text-align:left;margin-top:4px}
-    .critrow{grid-template-columns:1fr;gap:8px}
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#141414;--sub:#6a6a6a;--line:#e2e2e2;
+  --accent:#1b3f9b;--warn:#8a5300;
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+body{background:#fff;color:var(--ink);font-family:var(--sans);line-height:1.5}
+.w{max-width:860px;margin:0 auto;padding:44px 20px 80px}
+.eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--sub)}
+h1{font-family:var(--serif);font-size:30px;font-weight:400;margin:8px 0 6px;line-height:1.2}
+textarea{width:100%;border:1px solid var(--line);padding:12px 14px;font-family:var(--sans);font-size:14px;line-height:1.55;color:var(--ink);resize:vertical;outline:none}
+textarea:focus{border-color:var(--ink)}
+button#go{background:var(--ink);color:#fff;border:none;padding:11px 26px;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:var(--sans)}
+.hidden{display:none}
+.divider{border-top:2px solid var(--ink);padding-top:14px;margin-top:36px}
+.match{border-top:1px solid var(--line);padding:18px 0;display:grid;grid-template-columns:38px 1fr 100px;gap:14px;align-items:start}
+.rank{font-family:var(--serif);font-size:20px;color:var(--sub)}
+.best .rank{color:var(--ink)}
+h3.mn{font-family:var(--serif);font-size:17px;font-weight:400;margin:0 0 2px}
+.best h3.mn{font-weight:700}
+.mm{font-size:11.5px;color:var(--sub);margin-bottom:9px;line-height:1.4}
+.bar{position:relative;height:5px;background:#f0f0f0;border-radius:2px;overflow:visible}
+.fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:2px;width:0;transition:width .6s ease}
+.tick{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:1px}
+.why{font-size:13.5px;line-height:1.55;margin:10px 0 5px}
+.gaps{font-size:12.5px;color:var(--sub);margin:0}
+.gaps b{color:var(--warn);font-weight:600}
+.pct{font-family:var(--serif);font-size:30px;line-height:1;text-align:right}
+.best .pct{color:var(--accent)}
+.pl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-top:3px;text-align:right}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));border:1px solid var(--line);margin:14px 0 20px}
+.fact{padding:10px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fk{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:3px}
+.fv{font-size:12.5px;line-height:1.4}
+h3.ph{font-family:var(--serif);font-size:16px;font-weight:700;margin:20px 0 6px}
+h3.ph.first{margin-top:8px}
+p.prose{font-size:13.5px;line-height:1.6;max-width:680px;margin:0 0 6px}
+.crow{border-top:1px solid var(--line);padding:13px 0;display:grid;grid-template-columns:minmax(155px,210px) 1fr;gap:16px}
+.cn{font-size:13px;font-weight:600}
+.cp{font-size:11.5px;color:var(--sub);margin-top:3px}
+ul.adv,ol.steps{margin:0;padding-left:16px;font-size:13px;line-height:1.6;max-width:680px}
+ol.steps{padding-left:18px;line-height:1.65}
+ul.adv li,ol.steps li{margin-bottom:3px}
+h3.ph.rh{color:var(--warn)}
+footer{margin-top:48px;border-top:1px solid var(--line);padding-top:12px}
+footer p{font-size:11.5px;color:var(--sub);line-height:1.6}
+@media(max-width:520px){
+  .match{grid-template-columns:28px 1fr;gap:10px}
+  .pct,.pl{grid-column:2;text-align:left}
+  .crow{grid-template-columns:1fr;gap:6px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="eyebrow">Erasmus+ 2026 · Key Action 2 &amp; Key Action 3</div>
-    <h1>Idea-to-call assessment</h1>
-    <p>Paste a project idea. It is assessed against the objectives, priorities and award criteria of all thirteen
-       KA2 and KA3 actions in the Programme Guide 2026, ranked by fit, and the best match is developed into a
-       suggested path forward.</p>
-  </header>
+<div class="w">
 
-  <section>
-    <label for="idea" class="eyebrow">Project idea — free text, any length</label>
-    <textarea id="idea" rows="9" placeholder="Describe the idea: the problem, the target groups, the intended activities and results, the partners you have in mind, geography, and roughly the scale you imagine…"></textarea>
-    <div class="controls">
-      <button id="go">Assess the idea</button>
-      <span id="msg"></span>
-    </div>
-  </section>
+<header style="border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:24px">
+  <div class="eyebrow">Erasmus+ 2026 · Key Action 2 &amp; Key Action 3</div>
+  <h1>Idea-to-call assessment</h1>
+  <p style="color:var(--sub);font-size:13.5px;line-height:1.55;max-width:600px;margin:0 0 6px">Describe your project idea below. The tool assesses it against all thirteen KA2 and KA3 actions in the Programme Guide 2026, ranks the top three by fit percentage, and develops the best match into a suggested path forward.</p>
 
-  <section id="results" class="hidden">
-    <div class="section-rule">
-      <div class="eyebrow">Assessment — ranked fit</div>
-      <p class="summary" id="ideaSummary"></p>
-      <p class="legend">Fit expressed against the call's own objectives and priorities. The tick on each rule marks
-         the call's funding threshold — a reminder that thresholds are absolute, per criterion.</p>
-    </div>
-    <div id="matches"></div>
-  </section>
+</header>
 
-  <p id="pathwait" class="hidden">Developing the suggested path for the best match against its award criteria…</p>
+<section>
+  <div class="eyebrow" style="margin-bottom:7px">Project idea — free text, any length</div>
+  <textarea id="idea" rows="8" placeholder="Describe the idea: the problem, the target groups, the intended activities and results, the partners you have in mind, geography, and the scale you imagine…"></textarea>
+  <div style="display:flex;align-items:center;gap:14px;margin-top:10px;flex-wrap:wrap">
+    <button id="go">Assess the idea</button>
+    <span id="msg" style="font-size:13px;color:var(--warn)"></span>
+  </div>
+</section>
 
-  <section id="pathsec" class="hidden">
-    <div class="section-rule" style="margin-bottom:8px">
-      <div class="eyebrow" id="pathTitle"></div>
-    </div>
-    <div class="facts" id="facts"></div>
-    <h3 class="first">Positioning</h3>
-    <p class="prose" id="framing"></p>
-    <h3>Building the proposal criterion by criterion</h3>
-    <div id="critgrid"></div>
-    <h3>Impact narrative to commit to</h3>
-    <p class="prose" id="impact"></p>
-    <h3>Next steps</h3>
-    <ol id="steps"></ol>
-    <h3 class="warn" id="risksHead">Rejection risks to neutralise</h3>
-    <ul id="risks"></ul>
-  </section>
+<section id="res" class="hidden">
+  <div class="divider">
+    <div class="eyebrow">Assessment — ranked fit</div>
+  </div>
+  <p id="summary" style="font-family:var(--serif);font-size:16px;margin:8px 0 3px"></p>
+  <p style="color:var(--sub);font-size:12px;margin:0 0 16px;line-height:1.5">Fit reflects how well the idea's keyword signals match each call's objectives, sector, geography and priorities as written in the Programme Guide. The mark on each bar is the call's funding threshold — per-criterion minimums are absolute knockout conditions regardless of total score.</p>
+  <div id="matches"></div>
+</section>
 
-  <footer>
-    <p>Assessment grounded in the Erasmus+ Programme Guide 2026 (Version 1, 12/11/2025), Key Actions 2 and 3.
-       Indicative guidance only — verify eligibility, deadlines and priorities against the Guide and the
-       EDUFI / EACEA call pages before committing resources. AI analysis runs when this file is used inside the
-       Claude environment.</p>
-  </footer>
+<section id="psec" class="hidden">
+  <div class="divider" style="margin-bottom:6px">
+    <div class="eyebrow" id="ptitle"></div>
+  </div>
+  <div class="facts" id="facts"></div>
+  <h3 class="ph first">Positioning</h3>
+  <p class="prose" id="framing"></p>
+  <h3 class="ph">Building the proposal criterion by criterion</h3>
+  <div id="crits"></div>
+  <h3 class="ph">Impact narrative to commit to</h3>
+  <p class="prose" id="impact"></p>
+  <h3 class="ph">Next steps</h3>
+  <ol class="steps" id="steps"></ol>
+  <h3 class="ph rh" id="rh">Rejection risks to neutralise</h3>
+  <ul class="adv" id="risks"></ul>
+</section>
+
+<footer>
+  <p>Assessment grounded in the Erasmus+ Programme Guide 2026 (Version 1, 12/11/2025), Key Actions 2 and 3. Rule-based keyword and signal analysis — no internet connection or API key required after page load. Indicative guidance only. Verify eligibility, deadlines and priorities against the Guide and EDUFI / EACEA call pages before committing resources. Host on GitHub Pages for free: Settings → Pages → Deploy from main branch.</p>
+</footer>
 </div>
 
 <script>
-/* ============ Reference data (Programme Guide 2026) ============ */
+/* ============================================================
+   ERASMUS+ 2026  ·  KA2 / KA3  OFFLINE IDEA MATCHER
+   Rule-based keyword and signal analysis grounded in the
+   Erasmus+ Programme Guide 2026 (Version 1, 12/11/2025).
+   Works fully offline — no API key or server required.
+   ============================================================ */
+
+/* ── Reference data ───────────────────────────────────────── */
 const ACTIONS = [
- {id:"KA220",name:"Cooperation Partnerships (KA220)",ka:"KA2 — Partnerships for Cooperation",
-  agency:"National Agency (EDUFI in FI); ENGOs via EACEA",deadline:"5 March, 12:00 Brussels (possible 2nd round 1 Oct)",
-  grant:"Lump sum EUR 120 000 / 250 000 / 400 000",duration:"12–36 months",
-  consortium:"Min. 3 organisations from 3 EU MS / associated countries",threshold:70,
-  criteria:[{n:"Relevance",max:25,min:13},{n:"Quality of project design and implementation",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:25,min:13}]},
- {id:"KA210",name:"Small-scale Partnerships (KA210)",ka:"KA2 — Partnerships for Cooperation",
-  agency:"National Agency (EDUFI in FI)",deadline:"5 March, 12:00 Brussels; 2nd round 1 October",
-  grant:"Lump sum EUR 30 000 or EUR 60 000",duration:"6–24 months",
-  consortium:"Min. 2 organisations from 2 EU MS / associated countries",threshold:60,
-  criteria:[{n:"Relevance",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
- {id:"EPSD",name:"European Partnerships for School Development",ka:"KA2 — Partnerships for Cooperation (new 2026)",
-  agency:"National Agency (EDUFI in FI)",deadline:"9 April, 12:00 Brussels",
-  grant:"Lump sum EUR 400 000",duration:"36 months",
-  consortium:"Coordinator must be a local/regional school authority or school coordination body; min. 6 organisations incl. school authority + 2 schools in ≥2 countries",
-  threshold:70,
-  criteria:[{n:"Relevance",max:15,min:8},{n:"Quality of project design",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:35,min:18}]},
- {id:"COVE",name:"Centres of Vocational Excellence (CoVE)",ka:"KA2 — Partnerships for Excellence",
-  agency:"EACEA",deadline:"3 September, 17:00 Brussels",grant:"Max. EUR 4 000 000",duration:"48 months",
-  consortium:"Min. 8 applicants from min. 4 EU MS / associated countries; VET + world of work",threshold:75,
-  criteria:[{n:"Relevance of the project",max:35,min:18},{n:"Quality of project design and implementation",max:25,min:13},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:11},{n:"Impact",max:20,min:11}]},
- {id:"EMJM",name:"Erasmus Mundus Joint Masters (EMJM)",ka:"KA2 — Partnerships for Excellence",
-  agency:"EACEA",deadline:"12 February, 17:00 Brussels",
-  grant:"Scholarship-based lump sums per intake (multi-annual, several EUR million)",duration:"Up to 74 months",
-  consortium:"International HEI consortium delivering a fully integrated joint Master",threshold:70,
-  criteria:[{n:"Relevance of the project",max:30,min:22},{n:"Quality of project design and implementation",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
- {id:"EMDM",name:"Erasmus Mundus Design Measures (EMDM)",ka:"KA2 — Partnerships for Excellence",
-  agency:"EACEA",deadline:"12 February, 17:00 Brussels",grant:"Lump sum EUR 60 000",duration:"15 months",
-  consortium:"Mono-beneficiary (single HEI) designing a joint Master with ≥3 HEIs from 3 countries",threshold:60,
-  criteria:[{n:"Relevance of the project",max:30,min:16},{n:"Quality of project design and implementation",max:25,min:12},
-   {n:"Quality of partnership and cooperation arrangements",max:25,min:12},{n:"Impact",max:20,min:10}]},
- {id:"ALLIANCES",name:"Alliances for Innovation",ka:"KA2 — Partnerships for Innovation",
-  agency:"EACEA",deadline:"10 March, 17:00 Brussels",
-  grant:"Lot 1: EUR 1M (2y) / 1.5M (3y) · Lot 2 Blueprint: EUR 4M (4y) · Lot 3 STEM Foundries: EUR 1.5M (2y)",
-  duration:"2–4 years by lot",
-  consortium:"Lot 1: min. 8 applicants from ≥4 countries incl. ≥1 HEI, ≥1 VET provider and enterprises",threshold:70,
-  criteria:[{n:"Relevance of the project",max:25,min:13},{n:"Quality of project design and implementation",max:30,min:16},
-   {n:"Quality of partnership and cooperation arrangements",max:25,min:13},{n:"Impact",max:20,min:11}]},
- {id:"CBHE",name:"Capacity Building in Higher Education (CBHE)",ka:"KA2 — Capacity Building",
-  agency:"EACEA",deadline:"10 February, 17:00 Brussels",
-  grant:"Strand 1: 200–400K · Strand 2: 400–800K · Strand 3: 600K–1M (EUR)",duration:"24–36 months (S3 up to 48)",
-  consortium:"HEIs from ≥2 EU MS / associated countries + HEIs from eligible third countries not associated to the Programme",
-  threshold:60,
-  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Sustainability, impact and dissemination",max:20,min:10}]},
- {id:"CBVET",name:"Capacity Building in VET (CB VET)",ka:"KA2 — Capacity Building",
-  agency:"EACEA",deadline:"26 March, 17:00 Brussels",grant:"Max. EUR 500 000",duration:"12–36 months",
-  consortium:"Min. 4 applicants: ≥2 EU MS / associated countries and ≥2 organisations from eligible third countries",
-  threshold:60,
-  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
- {id:"CBYOUTH",name:"Capacity Building in the field of Youth",ka:"KA2 — Capacity Building",
-  agency:"EACEA",deadline:"26 February, 17:00 Brussels",
-  grant:"Max. EUR 300 000 (Regions 1–3) / 450 000 (Region 9)",duration:"12–36 months",
-  consortium:"Min. 4 applicants incl. organisations from eligible third countries",threshold:60,
-  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
- {id:"CBSPORT",name:"Capacity Building in the field of Sport",ka:"KA2 — Capacity Building",
-  agency:"EACEA",deadline:"5 March, 17:00 Brussels",grant:"EUR 100 000 – 200 000",duration:"12–36 months",
-  consortium:"Min. 4 organisations incl. grassroots sport organisations from Regions 1–2",threshold:60,
-  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:20,min:10},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:30,min:15}]},
- {id:"SPORTEVENTS",name:"Not-for-profit European Sport Events",ka:"KA2",
-  agency:"EACEA",deadline:"5 March (large-scale: 22 January), 17:00 Brussels",
-  grant:"EUR 200K / 300K / 450K; large-scale 1–1.5M",duration:"12–18 months",
-  consortium:"3–15+ organisations depending on event type",threshold:60,
-  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:20,min:10},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:30,min:15}]},
- {id:"EYT",name:"European Youth Together (KA3)",ka:"KA3 — Support to Policy Development and Cooperation",
-  agency:"EACEA",deadline:"26 February, 17:00 Brussels",grant:"Max. EUR 500 000",duration:"24 months",
-  consortium:"Min. 5 applicants from ≥5 EU MS / associated countries; youth NGOs and public bodies",threshold:60,
-  criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},
-   {n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]}
+  {id:"KA220",name:"Cooperation Partnerships (KA220)",ka:"KA2 — Partnerships for Cooperation",agency:"National Agency (EDUFI in FI); ENGOs via EACEA",deadline:"5 March, 12:00 Brussels",grant:"EUR 120 000 / 250 000 / 400 000 lump sum",duration:"12–36 months",consortium:"Min. 3 organisations from 3 EU MS / associated countries",threshold:70,criteria:[{n:"Relevance",max:25,min:13},{n:"Quality of project design and implementation",max:30,min:15},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:25,min:13}]},
+  {id:"EPSD",name:"European Partnerships for School Development",ka:"KA2 — Partnerships for Cooperation (new 2026)",agency:"National Agency (EDUFI in FI)",deadline:"9 April, 12:00 Brussels",grant:"EUR 400 000 lump sum",duration:"36 months",consortium:"Coordinator must be a local/regional school authority; min. 6 orgs incl. school authority + 2 schools in ≥2 countries",threshold:70,criteria:[{n:"Relevance",max:15,min:8},{n:"Quality of project design",max:30,min:15},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:35,min:18}]},
+  {id:"COVE",name:"Centres of Vocational Excellence (CoVE)",ka:"KA2 — Partnerships for Excellence",agency:"EACEA",deadline:"3 September, 17:00 Brussels",grant:"Max. EUR 4 000 000",duration:"48 months",consortium:"Min. 8 applicants from ≥4 programme countries; VET institutions + world of work",threshold:75,criteria:[{n:"Relevance of the project",max:35,min:18},{n:"Quality of project design and implementation",max:25,min:13},{n:"Quality of partnership and cooperation arrangements",max:20,min:11},{n:"Impact",max:20,min:11}]},
+  {id:"EMJM",name:"Erasmus Mundus Joint Masters (EMJM)",ka:"KA2 — Partnerships for Excellence",agency:"EACEA",deadline:"12 February, 17:00 Brussels",grant:"Scholarship-based; multi-annual, several EUR million",duration:"Up to 74 months",consortium:"International HEI consortium delivering a fully integrated joint Master",threshold:70,criteria:[{n:"Relevance of the project",max:30,min:22},{n:"Quality of project design and implementation",max:30,min:15},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
+  {id:"EMDM",name:"Erasmus Mundus Design Measures (EMDM)",ka:"KA2 — Partnerships for Excellence",agency:"EACEA",deadline:"12 February, 17:00 Brussels",grant:"EUR 60 000 lump sum",duration:"15 months",consortium:"Single HEI applicant; designing a joint Master with ≥3 HEIs from 3 countries",threshold:60,criteria:[{n:"Relevance of the project",max:30,min:16},{n:"Quality of project design and implementation",max:25,min:12},{n:"Quality of partnership and cooperation arrangements",max:25,min:12},{n:"Impact",max:20,min:10}]},
+  {id:"ALLIANCES",name:"Alliances for Innovation",ka:"KA2 — Partnerships for Innovation",agency:"EACEA",deadline:"10 March, 17:00 Brussels",grant:"Lot 1: EUR 1M–1.5M · Lot 2 Blueprint: EUR 4M · Lot 3 STEM Foundries: EUR 1.5M",duration:"2–4 years by lot",consortium:"Lot 1: min. 8 from ≥4 countries incl. ≥1 HEI, ≥1 VET provider and enterprises",threshold:70,criteria:[{n:"Relevance of the project",max:25,min:13},{n:"Quality of project design and implementation",max:30,min:16},{n:"Quality of partnership and cooperation arrangements",max:25,min:13},{n:"Impact",max:20,min:11}]},
+  {id:"CBHE",name:"Capacity Building in Higher Education (CBHE)",ka:"KA2 — Capacity Building",agency:"EACEA",deadline:"10 February, 17:00 Brussels",grant:"Strand 1: EUR 200–400K · Strand 2: EUR 400–800K · Strand 3: EUR 600K–1M",duration:"24–36 months (Strand 3 up to 48)",consortium:"HEIs from ≥2 EU MS / associated countries + HEIs from eligible third countries",threshold:60,criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Sustainability, impact and dissemination",max:20,min:10}]},
+  {id:"CBVET",name:"Capacity Building in VET (CB VET)",ka:"KA2 — Capacity Building",agency:"EACEA",deadline:"26 March, 17:00 Brussels",grant:"Max. EUR 500 000",duration:"12–36 months",consortium:"Min. 4 applicants: ≥2 EU MS / associated countries and ≥2 orgs from eligible third countries",threshold:60,criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
+  {id:"CBYOUTH",name:"Capacity Building in the field of Youth",ka:"KA2 — Capacity Building",agency:"EACEA",deadline:"26 February, 17:00 Brussels",grant:"Max. EUR 300 000 (Regions 1–3) / EUR 450 000 (Region 9)",duration:"12–36 months",consortium:"Min. 4 applicants incl. organisations from eligible third countries",threshold:60,criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]},
+  {id:"CBSPORT",name:"Capacity Building in the field of Sport",ka:"KA2 — Capacity Building",agency:"EACEA",deadline:"5 March, 17:00 Brussels",grant:"EUR 100 000 – 200 000",duration:"12–36 months",consortium:"Min. 4 organisations incl. grassroots sport orgs from Regions 1–2",threshold:60,criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:20,min:10},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:30,min:15}]},
+  {id:"SPORTEVENTS",name:"Not-for-profit European Sport Events",ka:"KA2",agency:"EACEA",deadline:"5 March (large-scale: 22 January), 17:00 Brussels",grant:"EUR 200K / 300K / 450K; large-scale EUR 1–1.5M",duration:"12–18 months",consortium:"3–15+ organisations depending on event type",threshold:60,criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:20,min:10},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:30,min:15}]},
+  {id:"EYT",name:"European Youth Together (KA3)",ka:"KA3 — Support to Policy Development and Cooperation",agency:"EACEA",deadline:"26 February, 17:00 Brussels",grant:"Max. EUR 500 000",duration:"24 months",consortium:"Min. 5 applicants from ≥5 EU MS / associated countries; youth NGOs and public bodies",threshold:60,criteria:[{n:"Relevance of the project",max:30,min:15},{n:"Quality of project design and implementation",max:30,min:15},{n:"Quality of partnership and cooperation arrangements",max:20,min:10},{n:"Impact",max:20,min:10}]}
 ];
 
-const KB = `
-ERASMUS+ PROGRAMME GUIDE 2026 — KA2 AND KA3 ACTIONS (condensed from the Guide main text)
+/* ── Signal detection ─────────────────────────────────────── */
+const S = (t, w) => w.filter(x => t.includes(x)).length;
 
-[KA220] COOPERATION PARTNERSHIPS. Objectives: increase quality in the work, activities and practices of organisations, opening up to new actors; build capacity to work transnationally and across sectors; address common needs and priorities in education, training, youth and sport; enable transformation and change at individual, organisational or sectoral level. Must address at least one 2026 priority: horizontal priorities are (1) inclusion and diversity (highly relevant flag), (2) environment and fight against climate change (green competences, New European Bauhaus), (3) digital transformation (digital skills, AI, digital pedagogy, disinformation, digital literacy), (4) common values, civic engagement, preparedness and participation; plus sector-specific priorities (e.g. higher education: inter-connected, innovative, inclusive, digital HE; Union of Skills; quality, mobility, recognition). Consortium: min 3 orgs from 3 programme countries; third-country partners only if essential added value. Grants: lump sums 120k/250k/400k EUR, 12-36 months, National Agency route, deadline 5 March. Award: Relevance 25 (highly relevant if inclusion priority or national European Priorities; EU values; needs analysis; innovation; EU added value), Quality of design 30 (clear objectives, work plan, cost-effectiveness, quality control, inclusion, digital tools & Erasmus+ platforms, green design, participation, indicators), Partnership 20 (mix of profiles incl. newcomers, task allocation, coordination), Impact 25 (integration of results into regular work, transferability beyond partners, dissemination, open licences, sustainability). Threshold 70/100 and at least half per criterion (13/15/10/13).
-
-[KA210] SMALL-SCALE PARTNERSHIPS. Objectives: attract and widen access for newcomers, less experienced organisations and small-scale actors; support inclusion of target groups with fewer opportunities; support active European citizenship and bring the European dimension to the local level; KA220 objectives apply proportionally. Especially suitable for inclusion & diversity as subject or working method. Consortium: min 2 orgs from 2 programme countries. Grants: 30k or 60k EUR lump sum, 6-24 months, National Agency, deadlines 5 March and 1 October. Award: Relevance 30, Quality of design 30, Partnership 20, Impact 20; threshold 60/100 and half per criterion (15/15/10/10). Simple administration; first step into European cooperation.
-
-[EPSD] EUROPEAN PARTNERSHIPS FOR SCHOOL DEVELOPMENT (new 2026). Objective: better cross-border cooperation and mobility between schools; improve quality of learning and teaching through European cooperation; strengthen institutional capacity/structures to extend learning mobility (synergies with KA1); trigger innovation in school education practices, procedures and policies. Activities in two mandatory categories: (1) improving quality of learning/teaching (innovative teaching, collaborative co-teaching, peer-learning/job-shadowing/mentoring, teacher substitution pooling) and (2) capacity building for cross-border cooperation (mobility coordinators/support structures, mainstreaming, mobility windows, recognition of learning outcomes and project work, train-the-trainer). Min 3 tasks, at least one per category. Coordinator MUST be a local/regional school authority or school coordination body; min 6 organisations; school authority + 2 schools in applicant country and in >=1 other country. 400k EUR lump sum, 36 months, National Agency, deadline 9 April. Award: Relevance 15, Quality of project design 30, Partnership 20, Impact 35; threshold 70 + half per criterion. Anchored in European Education Area, Union of Skills, 'Europe on the Move' Council Recommendation.
-
-[COVE] CENTRES OF VOCATIONAL EXCELLENCE. Objective: transnational collaborative networks of local/regional VET stakeholders (VET institutions, companies, social partners, authorities, HEIs, research) in public-private partnerships creating skills ecosystems for innovation, regional development, social inclusion and European competitiveness; high-quality learner-centred VET (project must show main focus on VET at EQF 3-5); upward convergence of VET excellence; activities under three clusters: teaching & learning, cooperation & partnerships, governance & funding. Requires long-term action plan for roll-out, use of EU tools (EQF, EQAVET, micro-credentials/EDC, ESCO). Policy anchors: Council Recommendation on VET, Osnabrück/Herning Declarations, Union of Skills, Competitiveness Compass, Clean Industrial Deal, regional smart specialisation. Min 8 applicants from >=4 programme countries. Max 4M EUR, 48 months, EACEA, deadline 3 September. Award: Relevance 35 (link to VET policy, consistency, innovation, regional dimension, EU added value, internationalisation, digital skills, green skills, social dimension), Quality of design 25 (coherence, activities across 3 clusters, methodology, management/KPIs, budget, work plan, quality control incl. external mid-term and final review), Partnership 20 (configuration incl. public authorities, upward convergence, geographical dimension, collaboration), Impact 20 (exploitation, dissemination, mainstreaming into regional/national/EU VET, sustainability with long-term action plan, governance, financial sustainability). Threshold 75/100 with minima 18/13/11/11. Seal of Excellence possible above thresholds.
-
-[EMJM] ERASMUS MUNDUS JOINT MASTERS. Objective: excellence and worldwide internationalisation of HE via fully integrated transnational Master programmes jointly delivered and recognised; EU-funded scholarships for best students worldwide; high degree of jointness/integration (joint admission, selection, delivery, QA, joint/multiple degree). EACEA, deadline 12 February. Award: Relevance 30 (min 22 required — very demanding), Quality of design 30, Partnership 20, Impact 20; threshold 70. Only for consortia ready to deliver an integrated joint Master of proven academic excellence.
-
-[EMDM] ERASMUS MUNDUS DESIGN MEASURES. Objective: design a new integrated Master programme (>=3 HEIs from 3 countries, >=2 from EU/associated); deliverables: joint admission/selection rules, joint programme, degree policy, draft partnership and student agreements, accreditation plan. Mono-beneficiary, 60k EUR, 15 months, EACEA, deadline 12 February. Award: Relevance 30/16, Quality 25/12, Partnership 25/12, Impact 20/10; threshold 60.
-
-[ALLIANCES] ALLIANCES FOR INNOVATION. Lot 1 Alliances for Education and Enterprises: transnational result-driven cooperation of HE, VET and enterprises fostering innovation, new skills, initiative and entrepreneurial mind-sets; aims include innovative multidisciplinary teaching/learning, STEM talent, incubators, corporate social responsibility, entrepreneurship (EntreComp), quality/relevance of skills, tackling skills mismatches and severe skills gaps in sectors crucial for Europe's competitiveness (Union of Skills), knowledge co-creation between HE, VET, research, public and business sectors, joint programmes and micro-credentials. Min 8 applicants from >=4 programme countries incl. >=1 HEI and >=1 VET provider and enterprises; 1M EUR (2y) or 1.5M (3y). Lot 2 Alliances for Sectoral Cooperation on Skills (Blueprint): sectoral skills strategies and intelligence, occupational profiles, training programmes for one of 14 industrial ecosystems, implementing the Pact for Skills under the Union of Skills; EQF 3-8; systemic impact on skills shortages; 4M EUR, 4 years; larger consortium incl. sectoral representatives. Lot 3 STEM Skills Foundries: HEI-VET-business cooperation giving young student entrepreneurs business insight, mentoring, labs, IP support, venture capital access in Competitiveness Compass strategic sectors; 1.5M EUR, 2 years. EACEA, deadline 10 March. Expected impact: regional innovation ecosystems, modernisation of HE and VET, Pact for Skills, Clean Industrial Deal, digital and green transitions. Award (all lots): Relevance 25/13, Quality of design 30/16, Partnership 25/13, Impact 20/11; threshold 70.
-
-[CBHE] CAPACITY BUILDING IN HIGHER EDUCATION. Objectives: support third countries not associated to the Programme — relevance of HE for Global Gateway; quality and labour-market relevance of HE; competences/employability of students via new innovative programmes; inclusive education; teaching, QA, governance, digital and entrepreneurial capacities, internationalisation of HEIs; system modernisation and reform; teacher training; cooperation with community and industry. Priorities: Green Deal, digital transformation (digital skills/literacy, connectivity, AI, SME digitalisation), integration of migrants, governance/peace/security/human development, sustainable growth and jobs (STEAM, entrepreneurship, brain drain). Strand 1: fostering access for newcomer/less experienced HEIs, people with fewer opportunities (200-400k). Strand 2: partnerships for transformation — MUST combine innovation in HE for labour-market and societal relevance AND institutional reform making HEIs catalysts of development (new curricula, innovative learning, staff development, governance, links to society/industry) (400-800k). Strand 3: structural reform at system level with national authorities (600k-1M); in regions 5a/6/8a/9/10/11 must align with Global Gateway priorities or fails Relevance minimum. Consortium: >=2 programme countries + eligible third countries; funding rate 90% lump sum. EACEA, deadline 10 February. Award: Relevance 30/15 (Global Gateway, regional priorities, SMART objectives, EU added value), Quality of design 30/15 (coherence, logic of intervention/indicators, work plan, budget, quality control, green design), Partnership 20/10 (management, composition incl. non-academic partners, third-country ownership), Sustainability-impact-dissemination 20/10 (exploitation, communication, impact at individual/institutional/system level, financial and institutional sustainability, local ownership). Threshold 60.
-
-[CBVET] CAPACITY BUILDING IN VET. Objectives: build capacity of VET providers in third countries not associated to the Programme; strengthen public-private cooperation for demand-oriented VET; improve quality and labour-market responsiveness of VET; align VET with local/regional/national development strategies. Thematic areas: work-based learning, quality assurance, VET teacher/trainer development, key competences incl. entrepreneurship, public-private dialogue, innovation in VET, green and digital skills for the twin transition, STEM in VET, skills matching, curricula and training modules. Regional priorities (Global Gateway packages, Torino process). Min 4 applicants (>=2 programme countries, >=2 orgs from eligible third countries). Max 500k EUR, 12-36 months, EACEA, deadline 26 March. Award: Relevance 30/15 (link to objectives/thematic areas/regional priorities), Quality 30/15 (needs analysis of third-country partners, coherence, work plan, recognition tools EQF/EQAVET/Europass/ESCO/DigComp/EntreComp/GreenComp, innovation), Partnership 20/10 (configuration, commitment esp. third-country ownership), Impact 20/10 (impact indicators SMART, dissemination, exploitation, open access, sustainability). Threshold 60.
-
-[CBYOUTH] CAPACITY BUILDING IN YOUTH. Objectives: raise capacity of organisations working with young people outside formal learning in eligible third countries; non-formal learning, young people with fewer opportunities; development and recognition of youth work; schemes for non-formal learning mobility; EU Youth Strategy 2019-2027, European Youth Goals, European Youth Work Agenda, Youth Action Plan in EU external action; Region 9 (Sub-Saharan Africa) also youth exchanges/participation activities under Africa-Europe Youth Academy and Youth Mobility for Africa flagship. Min 4 applicants; 300k (Regions 1-3) / 450k (Region 9). EACEA, deadline 26 February. Award: Relevance 30/15, Quality 30/15 (non-formal learning methods, Youthpass), Partnership 20/10, Impact 20/10. Threshold 60.
-
-[CBSPORT] CAPACITY BUILDING IN SPORT. Objectives: raise capacity of grassroots sport organisations; encourage sport and physical activity in third countries not associated to the Programme (Regions 1-2); social inclusion through sport; positive values (fair play, tolerance, team spirit); joint initiatives across world regions. Thematic: non-discrimination and gender equality through sport, skills for social involvement of disadvantaged groups, integration of migrants, post-conflict reconciliation. Min 4 orgs. 100-200k EUR, EACEA, deadline 5 March. Award: Relevance 30, Quality 20, Partnership 20, Impact 30; threshold 60 + half per criterion.
-
-[SPORTEVENTS] NOT-FOR-PROFIT EUROPEAN SPORT EVENTS. Objective: organisation of sport events with European dimension in: volunteering in sport; social inclusion through sport; fight against discrimination incl. gender equality; healthy lifestyles for all (HealthyLifestyle4All, EU Physical Activity Guidelines, European Week of Sport). One prevailing objective required. Types: European-local (Type I 200k, 3 orgs/3 countries; Type II 300k, 6 orgs/6 countries), European-wide (450k, 10 orgs), large-scale (1-1.5M, 15 orgs, deadline 22 January). Standard deadline 5 March, EACEA. Award: Relevance 30, Quality 20, Partnership 20, Impact 30; threshold 60 + half per criterion.
-
-[EYT] EUROPEAN YOUTH TOGETHER (KA3). Objective: transnational partnerships of grassroots and larger youth organisations, reinforcing the European dimension of their activities; joint projects, exchanges, trainings (physical and online); promote EU Youth Strategy 2019-2027 and European Youth Goals; EU core values; democratic participation esp. under-represented and fewer-opportunity youth incl. rural/remote; innovative cooperation between youth organisations; European Youth Work Agenda. Mobility for young people may be a key component if justified. Min 5 applicants from >=5 programme countries (NGOs incl. European Youth NGOs and public bodies); youth-led design encouraged. Max 500k EUR, 24 months, EACEA, deadline 26 February; financial support to third parties possible (max 60k per FSTP). Award: Relevance 30/15 (EU Youth Strategy added value, needs, youth engagement incl. remote/rural/fewer opportunities), Quality 30/15 (planning, methodology, cost effectiveness for grassroots, learning dimension/Youthpass), Partnership 20/10 (geographic spread reflecting European diversity, developing local NGOs, youth involved in all stages), Impact 20/10 (pathways to expected impact areas, scaling grassroots activity to EU level, system-level change, communication to policy makers). Threshold 60.
-
-IMPORTANT SCORING RULES (apply to all actions): the total threshold AND a minimum of roughly half the points per criterion are absolute — failing ONE criterion minimum rejects the proposal regardless of total. Action-type alignment is foundational: proposing the wrong project type for a call is a disqualifying error, not cosmetic.
-`;
-
-const SYS_RANK = `You are an experienced Erasmus+ evaluator and funding advisor. Using ONLY the knowledge base of the Erasmus+ Programme Guide 2026 below, assess which KA2 or KA3 action best fits the project idea provided by the user.
-
-${KB}
-
-Rules for the fit percentage: 85-100 = idea maps directly onto the action's objectives, consortium logic and scale; 65-84 = strong fit but requires reframing or consortium/scope adjustment; 40-64 = partial fit, significant restructuring needed; below 40 = poor fit. Judge against the action's OBJECTIVES, priorities, consortium requirements, scale/grant size, and target groups as written in the Guide. Penalise mismatches in project type (e.g. mobility idea vs institutional cooperation), geography (intra-EU vs third countries), sector, and scale. If the idea is too thin to assess, still rank but flag it.
-
-Respond ONLY with valid JSON, no markdown fences, no preamble, in this exact shape:
-{"matches":[{"id":"<ACTION ID from: KA220,KA210,EPSD,COVE,EMJM,EMDM,ALLIANCES,CBHE,CBVET,CBYOUTH,CBSPORT,SPORTEVENTS,EYT>","fit":<integer 0-100>,"why":"<=45 words grounded in the call text: which objectives/priorities it matches>","gaps":["<=15 words each, max 3 items: what the idea lacks vs this call>"]}],"ideaSummary":"<=25 words neutral summary of the idea>"}
-Return exactly 3 matches sorted by fit descending. Be strict and realistic — evaluators reject more than they fund.`;
-
-const SYS_PATH = `You are an experienced Erasmus+ evaluator and proposal coach. Using ONLY the knowledge base of the Erasmus+ Programme Guide 2026 below, produce a concrete path forward for developing the user's idea into a competitive proposal for the specified action. Anchor every recommendation in that action's award criteria, objectives and expected impact as written in the Guide. Remember: scoring below the per-criterion minimum rejects the proposal regardless of total score.
-
-${KB}
-
-Respond ONLY with valid JSON, no markdown fences, no preamble, in this exact shape:
-{"framing":"<=40 words: how to position the idea against the action's objectives and 2026 priorities>",
-"criteria":[{"criterion":"<criterion name>","advice":["<=22 words each, 2-3 concrete actions tailored to THIS idea to secure this criterion>"]}],
-"impact":"<=40 words: the impact narrative the proposal should commit to, in the call's own impact language>",
-"nextSteps":["<=18 words each, 4-5 sequenced practical steps: consortium, evidence, structure, timeline toward the deadline>"],
-"risks":["<=16 words each, max 3: rejection risks specific to this idea vs the thresholds>"]}
-Include all four award criteria of the action, in the Guide's order. Be specific to the idea, not generic.`;
-
-/* ============ API ============ */
-async function callClaude(system, user){
-  const response = await fetch("https://api.anthropic.com/v1/messages",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      model:"claude-sonnet-4-6",
-      max_tokens:1000,
-      system:system,
-      messages:[{role:"user",content:user}]
-    })
-  });
-  const data = await response.json();
-  const text = (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
-  const clean = text.replace(/```json|```/g,"").trim();
-  const s = clean.indexOf("{"), e = clean.lastIndexOf("}");
-  return JSON.parse(clean.slice(s, e+1));
+function detect(text) {
+  const t = text.toLowerCase();
+  return {
+    t,
+    tc: S(t,['africa ','sub-saharan','ghana','togo','kenya','ethiopia','senegal','tanzania','rwanda','nigeria','cameroon','morocco','tunisia','egypt','jordan','lebanon','west bank','georgia ','armenia','ukraine','moldova','vietnam','cambodia','laos','indonesia','philippines','peru','bolivia','colombia','nicaragua','haiti','third countr','developing countr','global south','western balkan','central asia','global gateway','country not associated','non-associated','torino process','partner country in region']),
+    eu: S(t,['programme country','associated country','european union','finland','france','germany','spain','italy','sweden','norway','denmark','netherlands','belgium','austria','portugal','ireland','poland','czech','hungarian','romania','bulgaria','croatia','slovenia','estonia','latvia','lithuania','cyprus','malta','luxembourg','greece','iceland','north macedonia','serbia','albania','türkiye','turkey ','eu member']),
+    he: S(t,['university','higher education','hei ','academic ','bachelor','phd','faculty','campus','research institution','professor','lecturer','ammattikorkeakoulu','university of applied','college of higher','vamk','uwasa','thomas more','atu ','uesd ','erasmus university']),
+    vet: S(t,['vocational','vet ','apprenticeship','technical school','workplace learning','work-based learning','eqf 3','eqf 4','eqf 5','vocational training','dual system','osnabrück','herning','vocational excellence','polytechnic college']),
+    youth: S(t,['youth ','young people','young adult','youth work','youth organisation','non-formal learning','youth club','european youth','youthpass','youth goal','youth worker','youth exchange','youth ngo','youth sector']),
+    sport: S(t,['sport ','physical activity','football','basketball','athletics','swimming pool','fitness','healthy lifestyle','sport organisation','grassroots sport','sport event','european week of sport','healthylifestyle']),
+    school: S(t,['school education','secondary school','primary school','compulsory education','headteacher','school principal','local school authority','school authority','school coordination','classroom','school pupils','schoolchildren','school teacher','school board']),
+    dig: S(t,['digital','artificial intelligence',' ai ','coding','programming','ict ','e-learning','digital literacy','digitalisation','digitalization','online platform','digital skills','digital transformation','digipass','digital product','internet of things','blockchain','cloud computing','cybersecurity','data analytics','machine learning','smart factory']),
+    green: S(t,['green ','sustainab','climate change','environment','carbon','renewable energy','circular economy','biodiversity','ecological','clean energy','net zero','emission','cleantech','greencomp','green skills','green entrepreneurship','green transition','clean industrial','new european bauhaus']),
+    ent: S(t,['entrepreneurship','startup','start-up','innovation ','enterprise ','entrepreneur','incubator','spin-off','venture capital','entrecomp','business creation','business model','intellectual property','commerciali','market launch']),
+    incl: S(t,['inclusion','diversit','disadvantaged','fewer opportunities','marginalised','marginalized','refugee','migrant','disabilit','rural ','remote area','social inclusion','vulnerable','low income','minority','gender equality','equity']),
+    skills: S(t,['skills mismatch','skills gap','labour market','workforce','upskilling','reskilling','pact for skills','union of skills','skills strategy','skills intelligence','occupational profile','learning outcome','employabilit','competence framework']),
+    cb: S(t,['capacity building','capacity development','strengthen institution','institutional reform','governance reform','quality assurance','curriculum development','staff development','institutional capacity','modernisation','modernization','system reform']),
+    jd: S(t,['joint master','joint degree','double degree','integrated programme','erasmus mundus','emjm','joint curriculum','joint diploma','joint accreditation','multiple degree','jointly awarded']),
+    event: S(t,['sport event','competition ','tournament','championship','sport festival','athletic competition','sporting event','european week of sport','sport competition']),
+    stem: S(t,['stem ','robotics','data science','engineering ','mathematics ','physics ','chemistry ','biology ','stem education','stem skills']),
+    mob: S(t,['mobility','exchange programme','study abroad','staff mobility','student exchange','blended mobility','virtual exchange','coil ','learning mobility']),
+    civic: S(t,['democratic','civic engagement','citizenship','participation ','eu values','fundamental rights','democratic participation','civic education','active citizenship']),
+    small: S(t,['small scale','pilot project','local level','two partner','bilateral','newcomer organisation','first european project','limited budget','grassroots level'])
+  };
 }
 
-/* ============ Rendering ============ */
-const $ = id => document.getElementById(id);
-const esc = s => String(s??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* ── Scoring ──────────────────────────────────────────────── */
+function score(id, g) {
+  const {tc,eu,he,vet,youth,sport,school,dig,green,ent,incl,skills,cb,jd,event,stem,mob,civic,small,t} = g;
+  let s = 0;
 
-function renderRanking(r){
-  $("ideaSummary").textContent = r.ideaSummary || "";
-  const box = $("matches"); box.innerHTML = "";
-  r.matches.forEach((m,i)=>{
-    const a = ACTIONS.find(x=>x.id===m.id);
-    const el = document.createElement("article");
-    el.className = "match" + (i===0 ? " best" : "");
+  if (id === 'KA220') {
+    const sec = Math.min(4, he+vet+youth+sport+school);
+    s = 15 + sec*5 + Math.min(3,dig)*4 + Math.min(3,green)*4 + Math.min(3,incl)*4 + Math.min(2,ent)*3 + Math.min(2,mob)*3 + Math.min(2,eu)*2;
+    if (tc >= 3 && eu === 0) s -= 12;
+    if (jd >= 2) s -= 8;
+    return clamp(s, 22, 82);
+  }
+
+  if (id === 'EPSD') {
+    s = 8 + school*9 + Math.min(2,mob)*5 + Math.min(2,incl)*3 + Math.min(2,dig)*2 + Math.min(2,green)*2;
+    if (school === 0) s -= 22;
+    if (he >= 2 && school === 0) s -= 12;
+    if (tc >= 2) s -= 12;
+    return clamp(s, 14, 85);
+  }
+  if (id === 'COVE') {
+    const pp = S(t,['public-private','private sector','industry ','employer','company','firm','chambers','sme ','business partner']);
+    const reg = S(t,['regional','local economy','smart specialisation','regional development','regional authority','regional strategy']);
+    s = 10 + vet*7 + Math.min(3,skills)*5 + Math.min(3,ent)*4 + Math.min(3,dig)*4 + Math.min(3,green)*4 + Math.min(2,stem)*3 + pp*3 + reg*3;
+    if (vet === 0) s -= 22; if (tc >= 3) s -= 10;
+    return clamp(s, 14, 86);
+  }
+  if (id === 'EMJM') {
+    const exc = S(t,['excellence','world-class','internationally recognised','global students','scholarship','prestigious','joint accredit','selective admission']);
+    s = 5 + jd*10 + he*5 + mob*2 + exc*4;
+    if (he === 0) s -= 25; if (jd === 0) s -= 20;
+    if (vet >= 2) s -= 10; if (school >= 2) s -= 10; if (youth >= 2) s -= 10;
+    return clamp(s, 12, 87);
+  }
+  if (id === 'EMDM') {
+    const des = S(t,['design ','planning ','develop new','feasibility','preparation','scoping','preparatory phase']);
+    s = 5 + jd*8 + he*4 + des*5 + mob*2;
+    if (he === 0) s -= 22; if (jd === 0) s -= 18;
+    if (vet >= 2) s -= 10;
+    return clamp(s, 12, 82);
+  }
+  if (id === 'ALLIANCES') {
+    const ind = S(t,['industry ','company','enterprise','employer','private sector','firm','sme ','business ','corporate']);
+    const mc = S(t,['micro-credential','short course','stackable','modular learning','flexible pathway']);
+    const trip = Math.min(2,he) + Math.min(2,vet) + Math.min(2,ent);
+    s = 12 + trip*5 + Math.min(3,skills)*5 + Math.min(3,dig)*4 + Math.min(3,stem)*4 + Math.min(3,green)*3 + ind*3 + mc*3;
+    if (ent === 0 && ind === 0) s -= 14;
+    if (tc >= 3) s -= 10; if (school >= 2) s -= 10;
+    return clamp(s, 14, 87);
+  }
+  if (id === 'CBHE') {
+    const s2 = S(t,['transformation','catalyst','labour market relevance','societal relevance','institutional reform','staff development','link to industry','link to society']);
+    s = 8 + he*6 + tc*6 + cb*5 + Math.min(3,dig)*4 + Math.min(3,green)*3 + Math.min(3,incl)*3 + Math.min(3,skills)*3 + s2*3;
+    if (he === 0) s -= 24; if (tc === 0) s -= 24;
+    if (eu >= 2 && tc === 0) s -= 16;
+    return clamp(s, 12, 87);
+  }
+  if (id === 'CBVET') {
+    s = 8 + vet*6 + tc*6 + cb*5 + Math.min(3,skills)*4 + Math.min(3,dig)*3 + Math.min(3,green)*3;
+    if (vet === 0) s -= 24; if (tc === 0) s -= 24;
+    if (eu >= 2 && tc === 0) s -= 16;
+    return clamp(s, 12, 85);
+  }
+  if (id === 'CBYOUTH') {
+    s = 8 + youth*7 + tc*6 + cb*4 + Math.min(3,incl)*4 + Math.min(3,mob)*3;
+    if (youth === 0) s -= 24; if (tc === 0) s -= 24;
+    if (eu >= 2 && tc === 0) s -= 16;
+    return clamp(s, 12, 85);
+  }
+  if (id === 'CBSPORT') {
+    s = 8 + sport*7 + tc*6 + Math.min(3,incl)*5 + cb*3;
+    if (sport === 0) s -= 24; if (tc === 0) s -= 24;
+    if (eu >= 2 && tc === 0) s -= 16;
+    return clamp(s, 12, 84);
+  }
+  if (id === 'SPORTEVENTS') {
+    s = 5 + event*9 + sport*6 + Math.min(3,incl)*3 + Math.min(2,eu)*2;
+    if (event === 0 && sport === 0) s -= 22;
+    if (tc >= 3) s -= 10;
+    if (he >= 2 && event === 0) s -= 10;
+    return clamp(s, 12, 83);
+  }
+  if (id === 'EYT') {
+    s = 10 + youth*7 + Math.min(3,eu)*4 + Math.min(3,incl)*4 + civic*5 + Math.min(3,mob)*3;
+    if (youth === 0) s -= 22;
+    if (tc >= 3 && eu === 0) s -= 14;
+    return clamp(s, 12, 85);
+  }
+  return 25;
+}
+
+function clamp(v, mn, mx) { return Math.round(Math.max(mn, Math.min(mx, v))); }
+
+/* ── Why text ─────────────────────────────────────────────── */
+function why(id, g) {
+  const {he,vet,youth,sport,school,dig,green,ent,incl,skills,cb,jd,tc,eu,mob,civic} = g;
+  const sec = he?'higher education':vet?'VET':youth?'youth work':sport?'sport':school?'school education':'education and training';
+  const th = [dig&&'digital transformation',green&&'green transition',incl&&'inclusion',ent&&'entrepreneurship',skills&&'skills development'].filter(Boolean).slice(0,2).join(' and ');
+
+  const map = {
+    KA220:`Aligns with KA220's objective of improving quality and transnational capacity in ${sec}${th?', addressing the '+th+' priority':''}. Suitable for cooperation among 3+ organisations from European programme countries.`,
+    EPSD: school?`Addresses EPSD's 2026 objectives of cross-border school cooperation and institutional capacity for learning mobility${dig?', with a digital teaching dimension':''}.`:`Limited school education signals — EPSD requires a local/regional school authority as coordinator and school organisations as core partners.`,
+    COVE: vet?`Strong VET sector fit for CoVE's skills ecosystem objective${skills?', addressing skills mismatches and upward convergence':''}${green?' with a green skills dimension':dig?' with a digital skills dimension':''}.`:`VET signals needed — CoVE specifically targets vocational training at EQF 3–5 with public-private skills ecosystems.`,
+    EMJM: jd?`Joint degree signals match EMJM's objective of fully integrated transnational Master programmes${he?' with international HEI consortium and EU-funded scholarships':''}.`:`Very specific action — EMJM requires an HEI consortium ready to jointly deliver, jointly award and jointly accredit a high-quality Master programme.`,
+    EMDM: jd?`Design Measures signals detected — EMDM supports a single HEI in the preparatory phase of designing a new joint Master before a full EMJM application.`:`EMDM is tightly scoped: one HEI applicant designing (not yet delivering) a joint Master with 3+ partner HEIs.`,
+    ALLIANCES:`Matches Alliances' objective of HE–VET–enterprise cooperation${skills?' tackling documented skills mismatches':''}${dig?' through digital competence co-development':''}${ent?' and entrepreneurship':''}. Relevant for innovation-driven education-enterprise partnerships.`,
+    CBHE: tc&&he?`Fits CBHE's objective of supporting third-country HEIs${cb?' through institutional capacity building and reform':''}${dig?' with a digital transformation component':''} — aligned with Global Gateway priorities.`:`CBHE requires both a third-country partner context (non-associated countries) and a higher education sector focus — one or both appear limited here.`,
+    CBVET: tc&&vet?`Aligns with CB VET's objective of strengthening VET capacity in third countries${skills?' and improving labour-market responsiveness':''}${dig?' with digital skills components':''}.`:`CB VET requires both VET sector focus and third-country partners from countries not associated to the Programme — signals for one or both are limited.`,
+    CBYOUTH: tc&&youth?`Fits CB Youth's objective of raising youth work capacity in third countries through non-formal learning${incl?' and inclusion of young people with fewer opportunities':''}.`:`CB Youth requires both a youth sector focus and eligible third-country partner organisations — signals for one or both appear limited.`,
+    CBSPORT: tc&&sport?`Matches CB Sport's objective of building grassroots sport capacity in third countries${incl?' through social inclusion and positive values of sport':''}.`:`CB Sport requires both a grassroots sport focus and third-country partner organisations in Regions 1–2 — signals appear limited.`,
+    SPORTEVENTS: sport||event?`Sport event signals align with the Not-for-profit Sport Events action's objective of organising events with a European dimension${incl?' promoting social inclusion':''}.`:`This action specifically funds the organisation of sport events — limited event or grassroots sport organisational signals detected.`,
+    EYT: youth?`Aligns with European Youth Together's objective of reinforcing the European dimension of youth work${incl?' and supporting under-represented young people':''}${civic?' through civic engagement and democratic participation':''}.`:`EYT requires youth NGOs and public bodies as core partners from 5+ programme countries — youth sector signals appear limited.`
+  };
+  return map[id] || '';
+}
+
+/* ── Gap text ─────────────────────────────────────────────── */
+function gaps(id, g) {
+  const {tc,eu,he,vet,youth,sport,school,jd,cb,incl,skills,ent} = g;
+  const map = {
+    KA220:[tc>=3&&eu===0&&'Third-country focus — KA220 needs min. 3 organisations from EU/associated countries',jd>=2&&'Joint degree concept is better suited to Erasmus Mundus actions',skills>=2&&vet>=1&&ent>=1&&'Strong skills-mismatch and enterprise angle may fit Alliances for Innovation better'],
+    EPSD:[school===0&&'No school education signals — coordinator must be a local/regional school authority',he>=2&&school===0&&'HEI focus: EPSD requires school organisations and school authorities as core partners',tc>=2&&'Third-country partnerships are not eligible under EPSD'],
+    COVE:[vet===0&&'No VET signals — CoVE specifically requires VET institutions and a focus on EQF 3–5 training',tc>=3&&'Third-country scope: CoVE focuses on intra-EU VET ecosystem development',skills===0&&ent===0&&'Skills gap and industry linkage signals are central to CoVE relevance — both appear limited'],
+    EMJM:[jd===0&&'No joint Master or joint degree signals — EMJM requires a fully integrated jointly awarded programme',he===0&&'No HEI signals — an international HEI consortium is mandatory for EMJM',tc>=2&&'Third-country focus is not a driver for EMJM — it targets global excellence, not capacity building'],
+    EMDM:[jd===0&&'No joint degree design signals — EMDM is specifically for designing a new joint Master programme',he===0&&'No HEI signals — EMDM is exclusively for higher education institutions',vet>=2&&'VET focus: EMDM is limited to Master-level HEI joint programme design only'],
+    ALLIANCES:[vet===0&&he===0&&'Alliances require both HE and VET sector involvement alongside enterprise partners',eu===0&&tc>=3&&'Third-country focus: Alliances are for programme-country consortia (EU/associated)',school>=2&&'School sector signals: Alliances target HE, VET and enterprise — not school education'],
+    CBHE:[tc===0&&'No third-country partner context — CBHE exclusively supports HEIs in non-associated third countries',he===0&&'No higher education signals — CBHE targets HEIs in third countries',eu>=2&&tc===0&&'Intra-EU scope detected: CBHE requires eligible third-country HEIs as core partners'],
+    CBVET:[tc===0&&'No third-country context — CB VET requires eligible third-country VET providers as core partners',vet===0&&'No VET signals — CB VET specifically targets vocational training providers in third countries',eu>=2&&tc===0&&'Intra-EU scope: CB VET requires third-country VET organisations, not only EU partners'],
+    CBYOUTH:[tc===0&&'No third-country context — CB Youth requires eligible third-country youth organisations',youth===0&&'No youth work signals — CB Youth targets youth organisations working outside formal education',eu>=2&&tc===0&&'Intra-EU scope: CB Youth requires third-country youth organisations as core partners'],
+    CBSPORT:[tc===0&&'No third-country context — CB Sport requires grassroots sport organisations in Regions 1–2',sport===0&&'No sport signals — CB Sport targets grassroots sport organisations in third countries',eu>=2&&tc===0&&'Intra-EU scope: CB Sport requires third-country grassroots sport organisations as core partners'],
+    SPORTEVENTS:[sport===0&&event===0&&'No sport event signals — this action funds the organisation of sport events, not training',tc>=3&&'Third-country focus is not central — Sport Events requires European-dimension participation',cb>=2&&'Capacity building framing: Sport Events funds event organisation, not training programmes or curricula'],
+    EYT:[youth===0&&'No youth organisation signals — EYT requires youth NGOs and public bodies from 5+ programme countries',tc>=3&&eu===0&&'Third-country focus: EYT requires min. 5 organisations from programme countries',he>=2&&youth===0&&'HEI focus: EYT is designed for youth organisations, not higher education institutions']
+  };
+  return (map[id]||[]).filter(Boolean).slice(0,3);
+}
+
+/* ── Idea summary ─────────────────────────────────────────── */
+function summarise(g) {
+  const {he,vet,youth,sport,school,dig,green,ent,incl,skills,tc,eu} = g;
+  const secs = [he&&'higher education',vet&&'VET',youth&&'youth work',sport&&'sport',school&&'school education'].filter(Boolean);
+  const ths = [dig&&'digital',green&&'green',ent&&'entrepreneurship',incl&&'inclusion',skills&&'skills'].filter(Boolean);
+  const geo = tc>=2&&eu===0?'third-country':tc>=1&&eu>=1?'mixed EU and third-country':'European programme-country';
+  const s = (secs.length?secs.join(' and '):'education and training');
+  const t = ths.length?` with ${ths.slice(0,2).join(' and ')} focus`:'';
+  const ge = (tc>=1||eu>=2)?`, ${geo} scope`:'';
+  return s.charAt(0).toUpperCase()+s.slice(1)+` cooperation idea${t}${ge}.`;
+}
+
+/* ── Path forward templates ───────────────────────────────── */
+function path(id, g) {
+  const {he,vet,youth,sport,school,dig,green,ent,incl,skills,cb,jd,tc,eu,mob,civic,stem} = g;
+  const sec = he?'higher education':vet?'VET':youth?'youth work':sport?'sport':school?'school education':'education and training';
+  const th1 = [dig&&'digital transformation',green&&'green transition',incl&&'social inclusion',ent&&'entrepreneurship',skills&&'skills development'].filter(Boolean)[0]||'quality improvement';
+  const th2 = [dig&&'digital transformation',green&&'green transition',incl&&'social inclusion',ent&&'entrepreneurship',skills&&'skills development'].filter(Boolean)[1]||'European cooperation';
+
+  const P = {
+    KA220:{
+      framing:`Position as a transnational cooperation project improving ${sec} quality through ${th1} and ${th2}. Clearly anchor in one or more 2026 horizontal priorities and articulate EU added value that national action alone cannot deliver.`,
+      criteria:[
+        {c:'Relevance',a:['Map the idea to at least one 2026 horizontal priority (digital, green, inclusion or civic) using EU policy evidence — European Education Area, Digital Education Action Plan, Green Deal','Conduct and document a shared needs analysis across partner organisations showing the problem cannot be solved at national level alone','Articulate specifically why European cooperation is necessary: what does the international dimension add that a domestic project cannot achieve?']},
+        {c:'Quality of project design and implementation',a:['Set SMART objectives with measurable output and result indicators for each work package — vague or unmeasurable objectives are the most common design failure','Structure the work plan in logical phases (preparation, implementation, quality control, dissemination) with clear milestones, deliverables and responsible partners','Embed Erasmus+ tools and platforms (EPALE, eTwinning, Youthlink) where relevant and commit to Open Educational Resource licences for intellectual outputs']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Ensure partner profiles are genuinely complementary — different types (e.g. HEI, VET provider, NGO, public authority) and different national contexts strengthen the score','Consider including one newcomer or less-experienced Erasmus+ organisation; KA220 explicitly values this','Define clear task allocation, decision-making structures and financial responsibilities from the outset in the consortium agreement']},
+        {c:'Impact',a:['Plan for results to be integrated into regular organisational practice beyond the project — evaluators specifically look for mainstreaming, not just project-period use','Develop a dissemination strategy committing to open licences and demonstrating reach beyond the consortium','Demonstrate transferability: how can organisations outside the consortium replicate or adapt the results?']}
+      ],
+      impact:`Lasting improvement in ${sec} quality through embedded European cooperation practices, open-access outputs and transferable models — contributing to the European Education Area and the ${th1} priority across participating organisations and beyond.`,
+      steps:['Confirm the consortium: min. 3 organisations from 3 different EU/associated countries with genuinely complementary profiles and shared needs','Document the shared problem through a needs analysis — this is the evidence base for both Relevance and Quality of design','Map the idea explicitly to at least one 2026 horizontal priority, citing specific EU policy documents as evidence','Determine the lump sum (EUR 120K, 250K or 400K) based on scope and ambition, then build the work plan to match','Submit via the EDUFI National Agency portal by 5 March 12:00 Brussels time — contact EDUFI early for sector-specific guidance'],
+      risks:['Failing Relevance minimum (13/25) by not explicitly addressing a 2026 horizontal priority or not providing a convincing shared needs analysis','Failing Quality of design minimum (15/30) by setting objectives without measurable indicators or presenting a work plan with vague timelines and outputs','Partnership minimum at risk (10/20) if all partners are from the same sector or country type without demonstrating genuinely complementary expertise']
+    },
+
+    EPSD:{
+      framing:`Position as a systemic school development initiative building lasting institutional capacity for cross-border learning mobility and improving teaching quality — anchored in the European Education Area, the 'Europe on the Move' Council Recommendation and the Union of Skills.`,
+      criteria:[
+        {c:'Relevance',a:['Reference the European Education Area, the Council Recommendation on learning mobility (Europe on the Move) and the Union of Skills as primary policy anchors','Demonstrate that the idea addresses a shared school education need documented across the participating school authorities','Relevance weight is low (15 pts) but the minimum is high relative to max (8/15) — treat it as a pass/fail gate, not a minor section']},
+        {c:'Quality of project design',a:['Include activities from BOTH mandatory categories: (1) improving quality of learning and teaching (innovative teaching, co-teaching, peer learning, job-shadowing) AND (2) capacity building for cross-border cooperation (mobility coordinators, recognition structures, mainstreaming)','Ensure at least 3 tasks total with at least one from each mandatory category — missing either category is a structural design failure that evaluators will reject','Show synergy with KA1 mobility: EPSD should build the institutional infrastructure that makes ongoing KA1 mobility sustainable']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Verify the coordinator is a local or regional school authority or school coordination body — this is a hard eligibility condition, not a preference','Consortium: school authority + min. 2 schools in applicant country + school authority and schools in at least 1 other country (min. 6 organisations)','Define how schools and authorities collaborate — not parallel activities in separate countries but genuine joint work']},
+        {c:'Impact',a:['Impact carries the highest weight (35 pts, min. 18) — treat it as the core of the application, not the final section','Demonstrate permanent institutional capacity after the project: embedded mobility coordinator roles, formalised recognition procedures, policy-level commitments from school authorities','Show change at authority level, not just individual school improvement — the authority must emerge with new structures, not just new knowledge']}
+      ],
+      impact:`Permanent institutional capacity for cross-border learning mobility embedded in the participating school authorities — with improved teaching quality, sustainable mobility coordinator structures and recognition procedures that support ongoing European cooperation beyond the project period.`,
+      steps:['Verify eligibility: confirm the applying organisation is a local or regional school authority or school coordination body (hard eligibility condition)','Map the minimum consortium: school authority + 2+ schools in applicant country + school authority and schools in 1+ other country = 6 organisations minimum','Design activities across both mandatory categories — document how each contributes to lasting mobility capacity','Build the Impact section (35 pts) as the core narrative: what permanent structures, roles and procedures result from this project?','Submit to the EDUFI National Agency by 9 April 12:00 Brussels time'],
+      risks:['Hard eligibility failure if the coordinator is not a school authority or school coordination body — this disqualifies the application regardless of content quality','Failing Impact minimum (18/35) by not demonstrating systemic institutional capacity building beyond individual teacher development','Missing either mandatory activity category — a structural gap that evaluators are specifically asked to check']
+    },
+    COVE:{
+      framing:`Position as a transnational VET excellence network creating a regional skills ecosystem that combines high-quality learner-centred VET (main focus EQF 3–5) with industry partnership, regional development and upward convergence — anchored in the Union of Skills, Competitiveness Compass and the Clean Industrial Deal.`,
+      criteria:[
+        {c:'Relevance of the project',a:['This is the heaviest criterion (35 pts, min. 18) — anchor in VET policy: Council Recommendation on VET, Osnabrück and Herning Declarations, Union of Skills','Demonstrate clearly that the main focus is on EQF 3–5 VET and that the project addresses documented skills needs in the regional economy with evidence','Articulate what the transnational CoVE network achieves that individual national VET institutions cannot — the European excellence dimension must be explicit']},
+        {c:'Quality of project design and implementation',a:['Structure activities across all three mandatory clusters: (1) teaching and learning, (2) cooperation and partnerships, (3) governance and funding — all three must appear','Plan and budget for mandatory external quality reviews: a mid-term external review and a final external review are both required by the Guide','Develop KPIs and a governance model capable of coordinating 8+ partners over 48 months; evaluators look for realistic management capacity']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Minimum 8 applicants from 4+ programme countries — verify geographic spread; include a public authority and employer/sector bodies alongside VET institutions','Demonstrate genuine public-private partnership: employers must be co-designing the skills ecosystem, not just endorsing the application','Show upward convergence: how does transnational exchange raise VET quality in all partner regions, not just the strongest?']},
+        {c:'Impact',a:['Prepare a concrete long-term action plan for the CoVE network beyond the project period — this is a Guide requirement, not optional','Demonstrate mainstreaming into regional and national VET policy and funding structures — not just dissemination of outputs','Plan for financial sustainability: what institutional commitments, regional funding or public-private resources will sustain the CoVE network?']}
+      ],
+      impact:`A sustainable transnational VET excellence ecosystem raising the quality and labour-market relevance of EQF 3–5 training in all partner regions — embedded in regional smart specialisation strategies, sustained through public-private governance and contributing to European competitiveness objectives.`,
+      steps:['Confirm a consortium of min. 8 organisations from 4+ programme countries including VET institutions, employers, social partners and a public authority','Commission or compile a regional skills needs analysis proving the documented labour-market gap the CoVE will address','Map all planned activities to the three mandatory clusters; budget for external mid-term and final reviews','Develop the long-term action plan for sustainability — this must be complete in the application, not deferred to after the project','Submit to EACEA by 3 September 17:00 Brussels; allow at least 6 months for consortium development and application preparation'],
+      risks:['Failing Relevance minimum (18/35) by not linking to VET policy anchors or not demonstrating EQF 3–5 as the main focus','Missing one or more of the three mandatory activity clusters — evaluators are explicitly asked to verify their presence','75/100 threshold is the highest in the entire programme — every criterion must be strong; even one weak criterion will fail the proposal']
+    },
+    EMJM:{
+      framing:`Position as a world-class fully integrated joint Master programme: joint admission, joint curriculum delivery, joint quality assurance and joint or multiple degree award — targeting the best students globally through EU-funded Erasmus Mundus scholarships.`,
+      criteria:[
+        {c:'Relevance of the project',a:['The Relevance minimum is 22/30 — the most demanding per-criterion minimum in the entire Erasmus+ programme; this is where most EMJM proposals fail','Demonstrate academic excellence and international distinctiveness: why is this joint Master uniquely needed and why is this consortium uniquely positioned to deliver it?','Show clear and evidenced labour-market and societal relevance of the subject area at Master level, grounded in European and global demand data']},
+        {c:'Quality of project design and implementation',a:['Document the full architecture of joint delivery: shared curriculum structure, joint teaching teams, student mobility windows, common assessment methods and joint quality assurance protocols','Address accreditation in all partner countries — joint accreditation or mutual recognition arrangements must be explicitly planned','Design the student experience end-to-end: welcome services, language support, buddy systems, accommodation and career services across all partner locations']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Each partner HEI must have a distinct and irreplaceable academic specialisation — the programme should be impossible to deliver without each partner','Define governance: a clear coordination structure, joint management board, shared financial responsibility and a quality assurance committee','Non-EU partner HEIs strengthen global reach and international student attraction — include them where genuinely added value exists']},
+        {c:'Impact',a:['Demonstrate that the programme will attract top students globally — show existing international recruitment channels, alumni networks or employer connections','Plan for alumni tracking, employability monitoring and long-term programme quality review','Show how the joint degree contributes to European HE internationalisation, the European Higher Education Area and the attractiveness of European universities globally']}
+      ],
+      impact:`A fully operational internationally recognised joint Master attracting world-class students through Erasmus Mundus scholarships — advancing European HE excellence and producing graduates with globally competitive competences recognised by employers across partner regions.`,
+      steps:['Confirm all partner HEIs and their specific academic contributions; every partner must add irreplaceable expertise','Verify joint or multiple degree feasibility and national accreditation procedures in every partner country — initiate enquiries immediately','Draft the integrated curriculum: joint modules, mobility windows, language of instruction, assessment frameworks','Design the scholarship scheme: number of awards, selection criteria, financial package, support services','Submit to EACEA by 12 February 17:00 Brussels — preparation typically takes 12–18 months; start now'],
+      risks:['Failing Relevance minimum (22/30) — the most common EMJM rejection; academic excellence and international distinctiveness must be overwhelming, not just adequate','Insufficient jointness: sequential or parallel study with thin integration will be rejected; evaluators check for genuine joint delivery at every stage','Unresolved accreditation: missing or vague joint/multiple degree recognition arrangements constitute a structural failure']
+    },
+    EMDM:{
+      framing:`Position as a focused preparatory phase to design a new Erasmus Mundus Joint Master — producing all mandatory joint programme documents, partnership agreements and accreditation plans needed to apply for full EMJM funding in a subsequent call.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Demonstrate a clear and specific case for a new joint Master: what documented gap does it fill and why is this consortium uniquely placed to deliver it?','Reference the EMJM objectives explicitly and map the planned programme to them — show readiness to pursue a full EMJM application after the design phase','Provide evidence of labour-market and societal relevance for the subject area at Master level in the partner regions']},
+        {c:'Quality of project design and implementation',a:['List all six mandatory EMDM deliverables explicitly in the proposal: (1) joint admission and selection rules, (2) joint curriculum, (3) degree award policy, (4) draft partnership agreement, (5) draft student agreement, (6) accreditation plan','Set realistic timelines — 15 months is the project duration; accreditation enquiries in some countries take several months and must begin early','Build in stakeholder consultation (students, employers, alumni) — this strengthens both the design quality and the eventual EMJM application']},
+        {c:'Quality of partnership and cooperation arrangements',a:['All 3+ HEI partners must be confirmed and actively engaged in the design process — letters of intent and clear role allocation are expected','Partnership minimum is 12/25 — demonstrate genuine collaborative design, not just advisory endorsement from partner institutions','Include at least 2 HEIs from EU/associated countries as required; non-EU partners add global relevance to the planned programme']},
+        {c:'Impact',a:['The primary concrete impact is the completed EMJM application — state this explicitly with a clear planned timeline from EMDM completion to EMJM submission','Show how the design phase builds lasting partnership capacity beyond the initial Erasmus Mundus funding cycle','Document how student and employer perspectives have been or will be integrated into the curriculum design']}
+      ],
+      impact:`A fully documented joint Master programme design ready for EMJM application — with complete joint agreements, accreditation roadmap and programme curriculum — enabling the consortium to pursue full Erasmus Mundus status in the next call.`,
+      steps:['Confirm the single applicant HEI and all 3+ partner HEIs (min. 2 from EU/associated countries); obtain signed Letters of Intent','Map the six mandatory EMDM deliverables to work packages; assign lead responsibility and clear deadlines for each','Initiate national accreditation process enquiries in each partner country immediately — this is typically the longest lead-time element','Plan stakeholder consultations (students, employers, alumni) and schedule them in the first half of the project','Submit as single beneficiary to EACEA by 12 February 17:00 Brussels time'],
+      risks:['Missing any of the six mandatory deliverables — a structural incompleteness that evaluators will identify and reject','Failing Partnership minimum (12/25) if partner HEIs appear as endorsers rather than active co-designers of the programme','Insufficient differentiation from existing joint Masters — evaluators will ask why a new programme is needed alongside what already exists']
+    },
+    ALLIANCES:{
+      framing:`Position as a result-driven HE–VET–enterprise alliance co-creating new${dig?' digital':green?' green':''} competences and qualifications to address documented skills mismatches — anchored in the Union of Skills and the Pact for Skills, with genuine enterprise co-design at the core.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Document the specific skills mismatch or severe skills gap with data — labour-market surveys, ESCO gap analysis, employer needs assessments, Cedefop or Eurostat evidence','Reference the Union of Skills and the Pact for Skills explicitly; for Lot 2 identify the specific industrial ecosystem; for Lot 3 identify the Competitiveness Compass sector','Demonstrate why a HE–VET–enterprise triple helix is the right model: show how each sector contributes something the others cannot']},
+        {c:'Quality of project design and implementation',a:['Design concrete joint outputs: new or updated training modules, joint curricula, micro-credentials, competence frameworks, challenge-based learning or simulation formats','Ensure enterprise partners are genuinely co-designing outputs — not serving on advisory boards; evaluators distinguish between real and nominal industry involvement','Plan a robust external validation process for all developed materials with relevant sector bodies, social partners or accreditation agencies']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Lot 1 minimum: 8 partners from 4+ programme countries including at least 1 HEI, 1 VET provider and enterprises — verify this before finalising the consortium','Each partner must have a role that no other partner can fulfil — demonstrate true complementarity, not duplication','Enterprise partners must be active co-developers with named representatives committed to specific tasks, not passive endorsers']},
+        {c:'Impact',a:['Demonstrate system-level impact on the skills supply chain: new or updated qualifications, frameworks or micro-credentials adopted by education providers beyond the consortium','Show how the Alliance contributes to the Pact for Skills commitments and Union of Skills objectives with measurable indicators','Plan for policy uptake: how will national authorities, sector bodies or social partners formally adopt or reference the outputs?']}
+      ],
+      impact:`Reduced skills mismatch in the target sector through jointly developed and validated${dig?' digital':green?' green':''} competence frameworks and micro-credentials — embedded in HE and VET programmes, adopted by enterprise partners and contributing to the Union of Skills and European competitiveness.`,
+      steps:['Confirm the three-way consortium: min. 1 HEI + min. 1 VET provider + enterprise(s) from 4+ programme countries (8 partners minimum for Lot 1)','Select the correct Lot (1: education-enterprise; 2: sectoral Blueprint; 3: STEM Foundries) and read its specific criteria carefully before writing','Gather labour-market data documenting the skills gap — this is the foundation of the Relevance criterion (13/25 minimum)','Co-design the project with enterprise partners before submission — evidence of joint planning strengthens the Partnership criterion','Submit to EACEA by 10 March 17:00 Brussels time'],
+      risks:['Failing Relevance minimum (13/25) by not documenting the skills mismatch with concrete data or not linking to Union of Skills','Nominal industry involvement — enterprise partners listed but not genuinely co-designing; evaluators explicitly assess this distinction','Wrong Lot selection: applying under Lot 2 without a genuine sectoral mandate, or Lot 3 without a Competitiveness Compass anchor, mismatches the call objectives']
+    },
+    CBHE:{
+      framing:`Position as a Strand ${cb>=2?'2 transformative':'1 or 2'} CBHE partnership bringing European HE expertise to strengthen third-country HEIs — improving${dig?' digital and ':''}${green?' green and ':''}labour-market relevant education in line with Global Gateway priorities and the third countries' own development strategies.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Anchor the proposal in the Global Gateway strategy and the specific regional priorities for the target third country — for Regions 5a, 6, 8a, 9, 10 and 11 this is mandatory; failure to do so results in failing the Relevance minimum','Set SMART objectives with measurable outcomes at the level of the third-country HEIs — not just at activity level','Articulate EU added value: what does EU HEI expertise bring that regional cooperation or national reform alone cannot achieve?']},
+        {c:'Quality of project design and implementation',a:['For Strand 2 (the most competitive strand): explicitly address BOTH mandatory pillars — (1) innovation in HE for labour-market and societal relevance AND (2) institutional reform making HEIs catalysts of development; addressing only one pillar is a structural failure','Build a logic of intervention with indicators at output, result and impact level — evaluators expect a theory of change, not just a work plan','Include quality control mechanisms and plan for green project management']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Third-country HEI partners must have genuine ownership and leadership of their country components — EU-led projects with passive third-country partners score poorly on both Partnership and Sustainability','Include non-academic partners (ministries of education, employers, civil society) where relevant to strengthen the labour-market relevance signal','Define clear management structures and a communication plan that works across time zones and institutional cultures']},
+        {c:'Sustainability, impact and dissemination',a:['Demonstrate financial and institutional sustainability: how will the third-country HEIs maintain the changes after funding ends? What budget commitments or policy decisions underpin sustainability?','Plan for system-level dissemination: how will results influence national HE policy and practice beyond the partner institutions?','Commit to open access for all intellectual outputs — this is expected across all CBHE strands']}
+      ],
+      impact:`Strengthened capacity of third-country HEIs to deliver${dig?' digitally-enabled':''} labour-market relevant education aligned with national development strategies — with institutional reforms embedded in governance structures, results disseminated at system level and contributions to Global Gateway objectives.`,
+      steps:['Identify third-country HEI partners with genuine institutional development needs and the authority to implement and sustain reforms','Verify regional priorities for the target third country in the EACEA Global Gateway framework and align every objective accordingly','Select the appropriate Strand (1: newcomer access; 2: transformation — BOTH pillars; 3: structural reform with national authorities)','Develop the theory of change: how do project activities lead to sustainable improvement in third-country HEI quality?','Submit to EACEA by 10 February 17:00 Brussels time; funding rate is 90% lump sum'],
+      risks:['Failing Relevance minimum (15/30) by not aligning with Global Gateway regional priorities — particularly critical for Regions 5a, 6, 8a, 9, 10 and 11','Strand 2 applications that address only one of the two mandatory pillars — this is one of the most common disqualifying errors in CBHE','Passive third-country partners: if EU HEIs are designing and leading everything, evaluators will penalise on Partnership and Sustainability']
+    },
+    CBVET:{
+      framing:`Position as a capacity building partnership improving the quality and labour-market responsiveness of VET in the target third country — co-developing${dig?' digital and ':''}${green?' green and ':''}work-based learning methodologies with third-country VET providers in line with Global Gateway priorities and the Torino Process.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Link explicitly to the Global Gateway regional package and the Torino Process recommendations for the specific third country — use the published regional priority documents','Map the idea to at least one or two CB VET thematic areas: work-based learning, QA, teacher/trainer development, green/digital skills, entrepreneurship, skills matching','Document a specific VET quality gap or skills shortage in the third country using national data or Torino Process assessments']},
+        {c:'Quality of project design and implementation',a:['Include a rigorous needs assessment conducted with (not just about) the third-country VET partners — their documented needs must drive the project design','Plan the use of EU recognition tools where relevant: EQAVET for quality assurance, ESCO for competences, DigComp, EntreComp or GreenComp for frameworks','Build genuine innovation into the design: simply transplanting EU VET models without contextualisation scores poorly on this criterion']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Third-country VET providers must be active co-designers and co-implementers throughout — their ownership of activities is explicitly assessed','Include public-private elements: employer organisations and social partners alongside VET providers strengthen the labour-market relevance signal','Minimum 4 partners: 2+ from EU/associated countries and 2+ from eligible third countries — verify eligibility of the specific third countries']},
+        {c:'Impact',a:['Set SMART impact indicators at VET system level (not just institutional): number of learners, trainers, institutions or qualifications affected','Plan open access for all training materials, competence frameworks and methodologies developed','Show how results will be adopted by national authorities or integrated into national VET qualification frameworks']}
+      ],
+      impact:`Improved quality and labour-market responsiveness of VET in the partner third country — with capacity-built VET providers, open-access training materials, reformed practices and contributions to Global Gateway objectives and the Torino Process.`,
+      steps:['Identify eligible third-country VET providers as active co-partners — genuine co-design from day one is a scoring criterion, not a later step','Conduct or commission a joint needs assessment with third-country partners and use it as the foundation of the Relevance narrative','Map activities to at least 2 CB VET thematic areas and reference relevant EU recognition tools (EQAVET, ESCO, DigComp)','Develop SMART impact indicators at national VET system level, not only at project level','Submit to EACEA by 26 March 17:00 Brussels time'],
+      risks:['Failing Relevance minimum (15/30) by not linking to Global Gateway regional priorities or the Torino Process for the specific third country','EU-led project design with third-country partners treated as beneficiaries rather than co-implementers — undermines both Partnership and Impact','Overstating systemic VET reform impact without evidence of national authority involvement to back it up']
+    },
+    CBYOUTH:{
+      framing:`Position as a capacity building partnership raising the quality and recognition of youth work in the target third country through non-formal learning — aligned with the EU Youth Strategy 2019–2027, the European Youth Goals and the Youth Action Plan in EU external action.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Link to the EU Youth Strategy 2019–2027, specific European Youth Goals and the Youth Action Plan in EU external action — name the specific Goals the project addresses','Identify a documented need for capacity in youth work and non-formal learning in the third country, using national or regional evidence','For Region 9 (Sub-Saharan Africa): also reference the Africa-Europe Youth Academy and the Youth Mobility for Africa flagship explicitly']},
+        {c:'Quality of project design and implementation',a:['Centre the methodology on non-formal learning — activities must develop competences of youth workers and young people outside formal education settings','Plan for Youthpass recognition of non-formal learning outcomes — evaluators look for this as a marker of quality and commitment to recognition','Design activities co-created with young people and third-country youth organisations — participatory design strengthens both quality and partnership scores']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Third-country youth organisations must be genuine co-designers and co-implementers — they are partners, not recipients of European expertise','Include local grassroots youth organisations in the third country — community-level reach strengthens credibility and Impact','Minimum 4 partners required; all must have active roles in co-designing and delivering activities']},
+        {c:'Impact',a:['Demonstrate impact on the recognition and professionalisation of youth work in the third country — at regional or national policy level where possible','Plan for sustainable structures: what trained youth workers, established networks or recognition systems remain after funding?','Show direct benefit for young people with fewer opportunities — this is central to the CB Youth mission']}
+      ],
+      impact:`Enhanced capacity of youth organisations in the third country to deliver quality non-formal learning and youth work — with improved recognition of youth workers' competences, lasting structures supporting young people with fewer opportunities and contributions to EU Youth Strategy global objectives.`,
+      steps:['Identify third-country youth organisations as genuine active partners — document their specific institutional needs and co-design roles','Map the project explicitly to the EU Youth Strategy, specific European Youth Goals and the Youth Action Plan in EU external action','Design activities using established non-formal learning methodologies; include Youthpass in the recognition and documentation plan','Verify the geographic eligibility of the third country for CB Youth and confirm the applicable grant ceiling (EUR 300K for Regions 1–3, EUR 450K for Region 9)','Submit to EACEA by 26 February 17:00 Brussels time'],
+      risks:['Failing Relevance minimum (15/30) by referencing EU Youth Strategy vaguely rather than naming specific Goals with supporting evidence','Youth organisations in the third country treated as beneficiaries rather than co-implementing partners — evaluators distinguish clearly between the two','Omitting Youthpass: its absence signals weak commitment to non-formal learning recognition, which is central to the action']
+    },
+    CBSPORT:{
+      framing:`Position as a grassroots sport capacity building partnership in a third country (Region 1 or 2) — using sport as a vehicle for social inclusion${incl?', gender equality':''}${incl?' and community development':''}, aligned with CB Sport's objective of building the organisational capacity of sport organisations in eligible third countries.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Document a specific need for grassroots sport capacity in the target third country (Western Balkans, Eastern Partnership, Southern Mediterranean or other eligible Regions 1–2 country)','Link to at least one CB Sport thematic area: non-discrimination and gender equality through sport, skills for social involvement, integration of migrants or post-conflict reconciliation','Demonstrate that sport is used as a vehicle for social outcomes — not elite performance; community and grassroots impact is what the action funds']},
+        {c:'Quality of project design and implementation',a:['Centre activities on building the organisational capacity of third-country grassroots sport organisations: coaching, administration, volunteer training, governance, financial management','Adapt all activities to the local context of the third country — EU sport models cannot be directly transplanted without contextualisation','Build in measurement of social outcomes (inclusion, gender equality, community participation) alongside sport participation metrics']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Grassroots sport organisations from the third country must be at the centre — they are the main beneficiaries and must be genuine co-designing partners','EU partners must be grassroots sport organisations too, not professional or elite bodies — the action explicitly targets the grassroots level','Minimum 4 organisations required; diversity of sport types and target groups (gender, age, background) strengthens the consortium profile']},
+        {c:'Impact',a:['Impact carries equal weight to Relevance (30 pts, min. 15) — social impact through sport must be documented with concrete measurable indicators','Demonstrate lasting capacity beyond the project: trained coaches and volunteers, established clubs, governance frameworks that continue without EU funding','Show reach to disadvantaged or underserved populations through sport — this is the heart of the CB Sport mission']}
+      ],
+      impact:`Strengthened grassroots sport capacity in the partner third country — with sport used as a vehicle for social inclusion, gender equality and community cohesion, leaving behind trained volunteers, improved governance and increased sport participation among underserved populations.`,
+      steps:['Confirm that all third-country partner organisations are grassroots sport organisations in Region 1 or Region 2 (verify country eligibility on the EACEA website)','Document the specific social need the project addresses through sport: inclusion, gender equality, post-conflict reconciliation or migrant integration','Design capacity-building activities focused on organisational strengthening of third-country sport organisations, not just athlete training','Set measurable impact indicators for both sport participation and social outcomes','Submit to EACEA by 5 March 17:00 Brussels time'],
+      risks:['Failing Relevance minimum (15/30) by not addressing one of the four CB Sport thematic areas with specific evidence','Impact minimum (15/30) at risk if social outcome indicators are vague, unmeasured or not linked to the sport activities','Third-country partners that are professional or elite clubs rather than genuine grassroots organisations — this misses the action target audience']
+    },
+    SPORTEVENTS:{
+      framing:`Position the event around one single clear prevailing objective — volunteering in sport, social inclusion through sport, fight against discrimination and gender equality, or healthy lifestyles for all — and build the entire application around that one objective. Diffuse focus is the most common Sport Events failure.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Choose exactly ONE prevailing objective and make it the spine of the entire application — evaluators are asked to check that one objective genuinely prevails','Link to the specific EU policy for the chosen objective: HealthyLifestyle4All, EU Physical Activity Guidelines, European Week of Sport, or anti-discrimination frameworks','Demonstrate the European dimension: why does this event need participants from multiple countries and what does the multi-national dimension add?']},
+        {c:'Quality of project design and implementation',a:['Provide credible event management planning: venue, logistics, safety, accreditation, programme structure, participant management and contingency planning','Integrate volunteers as a genuine and meaningful component of the event — not just as helpers but as participants in sport-for-society activities','Include a concrete legacy plan: what continues in the participating communities after the event concludes?']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Consortium size determines event type and grant amount — confirm which Type you are targeting (I: 3 orgs/EUR 200K; II: 6 orgs/EUR 300K; European-wide: 10 orgs/EUR 450K; large-scale: 15 orgs/EUR 1–1.5M)','All partner organisations must have active roles in the event — passive national contacts or logo supporters do not qualify as partners','Geographic distribution of partners should reflect genuine European reach, not nominal representation']},
+        {c:'Impact',a:['Impact is weighted equally with Relevance (30 pts, min. 15) — social, sport participation and European dimension outcomes must be measured','Set specific targets: number of participants, volunteers, countries represented, media coverage, social reach','Plan post-event dissemination of outcomes to EU sport policy bodies — European Week of Sport, national sport federations, local authorities']}
+      ],
+      impact:`A not-for-profit sport event with a demonstrable European dimension and measurable social outcomes — promoting ${incl?'inclusion and':'sport and'} healthy lifestyles through volunteer-integrated, multi-country participation and leaving a lasting legacy in the participating communities.`,
+      steps:['Select the prevailing event objective (one only) and determine the event type based on how many partner organisations and countries are realistically available','Confirm partner organisations match the consortium size requirement for the chosen type before finalising the application','Develop a detailed, credible event plan: programme, logistics, volunteer roles, safety protocols and participant experience','Set measurable targets for the prevailing objective aligned with the EU policy framework for that objective','Submit to EACEA by 5 March 17:00 Brussels (or 22 January for large-scale events)'],
+      risks:['Failing Relevance minimum (15/30) by not committing to a single, clearly dominant objective — split focus fails this criterion','Impact minimum (15/30) at risk if social or participation outcome targets are vague or lack measurement methods','Insufficient European dimension: events that are national in character with nominal international partners score poorly on Partnership and Impact']
+    },
+    EYT:{
+      framing:`Position as a transnational youth partnership reinforcing the European dimension of youth work — centred on the EU Youth Strategy 2019–2027, specific European Youth Goals and civic engagement — with physical and online activities involving diverse grassroots and larger youth organisations from 5+ programme countries.`,
+      criteria:[
+        {c:'Relevance of the project',a:['Link to at least 2–3 specific European Youth Goals (not the Strategy in general) and demonstrate how the project advances them with evidence of need','Identify under-represented or fewer-opportunity young people as a specific target group — rural and remote youth are explicitly mentioned in the Guide','Articulate the EU added value of transnational youth cooperation: what does working across 5+ countries add that national youth programmes cannot achieve?']},
+        {c:'Quality of project design and implementation',a:['Design a programme combining physical activities (exchanges, training seminars, youth events) with online collaboration — blended approaches score well','Ensure young people are actively shaping the project design and governance, not just participating as attendees — youth co-design is explicitly valued in EYT','Plan the use of Youthpass to formally recognise and document the non-formal learning outcomes of all young participants']},
+        {c:'Quality of partnership and cooperation arrangements',a:['Minimum 5 partners from 5 different EU/associated programme countries — geographic spread reflecting European diversity is explicitly assessed','Include a mix of grassroots local NGOs and larger established youth organisations — the combination of scale and community embeddedness strengthens the score','Young people should be involved at every stage: in governance meetings, co-designing activities and co-evaluating results']},
+        {c:'Impact',a:['Demonstrate how the project scales grassroots youth activity to the European level — the distinctive EYT impact is the bridge from local to EU','Show pathways to system-level change: how will results reach youth policy makers at national and EU level? Plan at least one policy-facing output','Consider Financial Support to Third Parties (FSTP) — EYT allows up to EUR 60K per third party for involving additional grassroots groups beyond the core consortium']}
+      ],
+      impact:`Strengthened European dimension of youth work across 5+ programme countries — with diverse young people, including those from rural and remote areas, engaged in transnational exchange and learning, their non-formal competences recognised through Youthpass, and outcomes shared with youth policy makers.`,
+      steps:['Confirm 5+ youth NGO or public body partners from 5+ different EU/associated programme countries; verify geographic and organisational diversity','Map the project to specific European Youth Goals by name — be precise and evidence-based, not generic','Design youth co-leadership structures: define how young people shape the project from planning through delivery and evaluation','Plan Youthpass integration from the start; consider FSTP to involve grassroots groups beyond the core consortium','Submit to EACEA by 26 February 17:00 Brussels time'],
+      risks:['Failing Relevance minimum (15/30) by referencing the EU Youth Strategy vaguely without naming specific Youth Goals or providing evidence of need','Fewer than 5 partners from 5 programme countries — a hard eligibility failure that disqualifies the application','Youth participation that is nominal (attendance at events) rather than genuine co-leadership — evaluators are specifically asked to assess the depth of youth involvement']
+    }
+  };
+  return P[id] || null;
+}
+
+/* ── Render & run ─────────────────────────────────────────── */
+const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function run() {
+  const idea = document.getElementById('idea').value.trim();
+  const msg = document.getElementById('msg');
+  if (idea.length < 40) { msg.textContent = 'Describe the idea in at least a few sentences — the quality of the assessment depends on the detail you provide.'; return; }
+  msg.textContent = '';
+  document.getElementById('res').classList.add('hidden');
+  document.getElementById('psec').classList.add('hidden');
+
+  const g = detect(idea);
+
+  // Score all 13 actions
+  const scored = ACTIONS.map(a => ({ ...a, fit: score(a.id, g) })).sort((a,b) => b.fit - a.fit);
+
+  // Ensure visible spread between top 3
+  const top = scored.slice(0, 3);
+  if (top.length >= 2 && top[0].fit - top[1].fit < 4) top[1] = {...top[1], fit: top[0].fit - 5};
+  if (top.length >= 3 && top[1].fit - top[2].fit < 4) top[2] = {...top[2], fit: top[1].fit - 6};
+  top.forEach((t,i) => { if(i>0 && top[i-1].fit <= t.fit) top[i] = {...t, fit: top[i-1].fit - 5}; });
+
+  // Summary
+  document.getElementById('summary').textContent = summarise(g);
+
+  // Matches
+  const box = document.getElementById('matches');
+  box.innerHTML = '';
+  top.forEach((m, i) => {
+    const a = ACTIONS.find(x => x.id === m.id);
+    const w = why(m.id, g);
+    const gp = gaps(m.id, g);
+    const el = document.createElement('div');
+    el.className = 'match' + (i === 0 ? ' best' : '');
     el.innerHTML = `
       <div class="rank">${i+1}</div>
       <div>
-        <h2>${esc(a.name)}</h2>
-        <div class="meta">${esc(a.ka)} · ${esc(a.agency)} · Deadline ${esc(a.deadline)} · ${esc(a.grant)}</div>
-        <div class="rule">
-          <div class="fill"></div>
-          <div class="tick" style="left:${a.threshold}%" title="Funding threshold ${a.threshold}/100"></div>
-        </div>
-        <p class="why">${esc(m.why)}</p>
-        ${m.gaps && m.gaps.length ? `<p class="gaps"><b>Gaps:</b> ${m.gaps.map(esc).join(" · ")}</p>` : ""}
+        <h3 class="mn">${esc(a.name)}</h3>
+        <div class="mm">${esc(a.ka)} · ${esc(a.agency)} · Deadline: ${esc(a.deadline)} · ${esc(a.grant)}</div>
+        <div class="bar"><div class="fill" id="f${i}"></div><div class="tick" style="left:${a.threshold}%" title="Funding threshold: ${a.threshold}/100"></div></div>
+        <p class="why">${esc(w)}</p>
+        ${gp.length?`<p class="gaps"><b>Gaps:</b> ${gp.map(esc).join(' · ')}</p>`:''}
       </div>
-      <div class="fitnum">${m.fit}<span>%</span><div class="eyebrow" style="margin-top:4px">fit</div></div>`;
+      <div><div class="pct">${m.fit}<span style="font-size:15px">%</span></div><div class="pl">fit</div></div>`;
     box.appendChild(el);
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{ el.querySelector(".fill").style.width = m.fit + "%"; }));
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const f = document.getElementById('f'+i);
+      if (f) f.style.width = m.fit + '%';
+    }));
   });
-  $("results").classList.remove("hidden");
-}
+  document.getElementById('res').classList.remove('hidden');
 
-function renderPath(p, best){
-  $("pathTitle").textContent = "Suggested path forward — " + best.name;
-  const facts = [
-    ["Managed by",best.agency],["Deadline",best.deadline],["Grant",best.grant],
-    ["Duration",best.duration],["Consortium",best.consortium],
-    ["Funding threshold",best.threshold + "/100 — and at least the minimum in every criterion"]
-  ];
-  $("facts").innerHTML = facts.map(([k,v])=>`<div><div class="eyebrow">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join("");
-  $("framing").textContent = p.framing || "";
-  $("critgrid").innerHTML = (p.criteria||[]).map((c,idx)=>{
-    const meta = best.criteria.find(x=>x.n.toLowerCase().startsWith(String(c.criterion||"").toLowerCase().slice(0,12))) || best.criteria[idx];
-    return `<div class="critrow">
-      <div><div class="critname">${esc(c.criterion)}</div>
-      ${meta?`<div class="critpts">max ${meta.max} pts · pass ≥ ${meta.min}</div>`:""}</div>
-      <ul>${(c.advice||[]).map(a=>`<li>${esc(a)}</li>`).join("")}</ul>
+  // Path forward
+  const best = ACTIONS.find(a => a.id === top[0].id);
+  const pd = path(top[0].id, g);
+  if (!pd) return;
+
+  document.getElementById('ptitle').textContent = 'Suggested path forward — ' + best.name;
+
+  const facts = [['Managed by',best.agency],['Deadline',best.deadline],['Grant',best.grant],['Duration',best.duration],['Consortium',best.consortium],['Funding threshold',best.threshold+'/100 — and at least the minimum in every single criterion']];
+  document.getElementById('facts').innerHTML = facts.map(([k,v]) => `<div class="fact"><div class="fk">${esc(k)}</div><div class="fv">${esc(v)}</div></div>`).join('');
+
+  document.getElementById('framing').textContent = pd.framing;
+
+  document.getElementById('crits').innerHTML = pd.criteria.map((cr, idx) => {
+    const meta = best.criteria.find(x => x.n.toLowerCase().startsWith((cr.c||'').toLowerCase().slice(0,12))) || best.criteria[idx];
+    return `<div class="crow">
+      <div><div class="cn">${esc(cr.c)}</div>${meta?`<div class="cp">max ${meta.max} pts · pass ≥ ${meta.min}</div>`:''}</div>
+      <ul class="adv">${(cr.a||[]).map(a=>`<li>${esc(a)}</li>`).join('')}</ul>
     </div>`;
-  }).join("");
-  $("impact").textContent = p.impact || "";
-  $("steps").innerHTML = (p.nextSteps||[]).map(s=>`<li>${esc(s)}</li>`).join("");
-  const risks = p.risks || [];
-  $("risks").innerHTML = risks.map(r=>`<li>${esc(r)}</li>`).join("");
-  $("risksHead").style.display = risks.length ? "" : "none";
-  $("risks").style.display = risks.length ? "" : "none";
-  $("pathsec").classList.remove("hidden");
+  }).join('');
+
+  document.getElementById('impact').textContent = pd.impact;
+  document.getElementById('steps').innerHTML = (pd.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('');
+  document.getElementById('risks').innerHTML = (pd.risks||[]).map(r=>`<li>${esc(r)}</li>`).join('');
+  document.getElementById('rh').style.display = pd.risks.length ? '' : 'none';
+  document.getElementById('risks').style.display = pd.risks.length ? '' : 'none';
+  document.getElementById('psec').classList.remove('hidden');
+  document.getElementById('res').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-/* ============ Flow ============ */
-$("go").addEventListener("click", async ()=>{
-  const idea = $("idea").value.trim();
-  const msg = $("msg");
-  if(idea.length < 40){
-    msg.textContent = "Describe the idea in a few sentences at least — the assessment is only as good as the input.";
-    return;
-  }
-  msg.textContent = "";
-  $("results").classList.add("hidden");
-  $("pathsec").classList.add("hidden");
-  $("pathwait").classList.add("hidden");
-  const btn = $("go");
-  btn.disabled = true;
-  btn.textContent = "Assessing against 13 calls…";
-  try{
-    const r = await callClaude(SYS_RANK, "PROJECT IDEA:\n" + idea);
-    const valid = (r.matches||[]).filter(m=>ACTIONS.some(a=>a.id===m.id)).slice(0,3);
-    if(!valid.length) throw new Error("no valid matches");
-    renderRanking({...r, matches:valid});
-    const best = ACTIONS.find(a=>a.id===valid[0].id);
-    btn.textContent = "Preparing path forward…";
-    $("pathwait").classList.remove("hidden");
-    const p = await callClaude(SYS_PATH,
-      `ACTION: ${best.id} — ${best.name}\n\nPROJECT IDEA:\n${idea}\n\nEVALUATOR'S INITIAL ASSESSMENT: fit ${valid[0].fit}%. ${valid[0].why} Identified gaps: ${(valid[0].gaps||[]).join("; ")}`);
-    $("pathwait").classList.add("hidden");
-    renderPath(p, best);
-  }catch(err){
-    console.error(err);
-    $("pathwait").classList.add("hidden");
-    msg.textContent = "The analysis could not be completed. Check the connection and try again — the idea text is preserved.";
-  }finally{
-    btn.disabled = false;
-    btn.textContent = "Re-assess";
-  }
-});
+document.getElementById('go').addEventListener('click', run);
+document.getElementById('idea').addEventListener('keydown', e => { if (e.key === 'Enter' && e.ctrlKey) run(); });
 </script>
 </body>
 </html>
